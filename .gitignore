@@ -1,0 +1,4 @@
+bin
+downloads/
+.terraform
+*tfstate*
