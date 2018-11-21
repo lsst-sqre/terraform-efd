@@ -1,4 +1,5 @@
 bin
+creds.sh
 downloads/
 .terraform
 *tfstate*
