@@ -30,4 +30,5 @@ provider "helm" {
 
 provider "aws" {
   version = "~> 1.21"
+  region = "us-east-1"
 }

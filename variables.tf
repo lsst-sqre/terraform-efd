@@ -21,3 +21,13 @@ data "template_file" "gke_cluster_name" {
 data "template_file" "k8s_namespace" {
   template = "${var.deploy_name}"
 }
+
+variable "aws_zone_id" {
+  description = "route53 Hosted Zone ID to manage DNS records in."
+  default     = "Z3TH0HRSNU67AM"
+}
+
+variable "domain_name" {
+  description = "DNS domain name to use when creating route53 records."
+  default     = "lsst.codes"
+}
