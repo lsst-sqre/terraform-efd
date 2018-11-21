@@ -5,8 +5,6 @@ variable "google_project" {
 
 variable "env_name" {
   description = "Name of deployment environment."
-  # XXX don't commit
-  default     = "jhoblitt-test"
 }
 
 variable "deploy_name" {
