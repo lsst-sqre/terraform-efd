@@ -18,6 +18,7 @@ data "kubernetes_service" "lb0" {
     name = "confluent-0-loadbalancer"
     namespace = "${data.template_file.k8s_namespace.rendered}"
   }
+  depends_on = ["helm_release.confluent"]
 }
 
 data "kubernetes_service" "lb1" {
@@ -25,6 +26,7 @@ data "kubernetes_service" "lb1" {
     name = "confluent-1-loadbalancer"
     namespace = "${data.template_file.k8s_namespace.rendered}"
   }
+  depends_on = ["helm_release.confluent"]
 }
 
 data "kubernetes_service" "lb2" {
@@ -32,6 +34,7 @@ data "kubernetes_service" "lb2" {
     name = "confluent-2-loadbalancer"
     namespace = "${data.template_file.k8s_namespace.rendered}"
   }
+  depends_on = ["helm_release.confluent"]
 }
 
 data "template_file" "lb0_ip" {
