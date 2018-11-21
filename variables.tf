@@ -9,7 +9,7 @@ variable "env_name" {
 
 variable "deploy_name" {
   description = "Name of deployment."
-  default     = "kafka-demo"
+  default     = "efd-kafka"
 }
 
 # Name of google cloud container cluster to deploy into
