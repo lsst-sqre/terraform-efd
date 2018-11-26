@@ -9,6 +9,7 @@ resource "helm_release" "confluent" {
   chart      = "cp-helm-charts"
   namespace  = "${data.template_file.k8s_namespace.rendered}"
 
+  keyring       = ""
   force_update  = true
   recreate_pods = true
 }
