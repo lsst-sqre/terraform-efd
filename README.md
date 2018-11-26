@@ -1,7 +1,7 @@
 terraform efd-kafka "top level" deployment
 ===
 
-[![Build Status](https://travis-ci.org/lsst-sqre/terraform-kafka-demo.png)](https://travis-ci.org/lsst-sqre/terraform-kafka-demo)
+[![Build Status](https://travis-ci.org/lsst-sqre/terraform-efd-kafka.png)](https://travis-ci.org/lsst-sqre/terraform-efd-kafka)
 
 Usage
 ---
