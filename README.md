@@ -33,7 +33,7 @@ Outputs
 * `lb1`
 * `lb2`
 
-Name of `load-balancer` service IPs.
+`load-balancer` service IPs.
 
 See Also
 ---
