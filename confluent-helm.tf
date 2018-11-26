@@ -15,23 +15,29 @@ resource "helm_release" "confluent" {
 
 data "kubernetes_service" "lb0" {
   metadata {
-    name = "confluent-0-loadbalancer"
+    name      = "confluent-0-loadbalancer"
     namespace = "${data.template_file.k8s_namespace.rendered}"
   }
+
+  depends_on = ["helm_release.confluent"]
 }
 
 data "kubernetes_service" "lb1" {
   metadata {
-    name = "confluent-1-loadbalancer"
+    name      = "confluent-1-loadbalancer"
     namespace = "${data.template_file.k8s_namespace.rendered}"
   }
+
+  depends_on = ["helm_release.confluent"]
 }
 
 data "kubernetes_service" "lb2" {
   metadata {
-    name = "confluent-2-loadbalancer"
+    name      = "confluent-2-loadbalancer"
     namespace = "${data.template_file.k8s_namespace.rendered}"
   }
+
+  depends_on = ["helm_release.confluent"]
 }
 
 data "template_file" "lb0_ip" {
