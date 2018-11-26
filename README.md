@@ -15,7 +15,7 @@ may be inappropriate in a module.
 ```terraform
 terragrunt = {
   terraform {
-    source = "git::git@github.com:jhoblitt/terraform-efd-kafka.git//?ref=master"
+    source = "git::git@github.com:lsst-sqre/terraform-efd-kafka.git//?ref=master"
   }
 }
 ```
