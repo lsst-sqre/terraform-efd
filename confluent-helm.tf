@@ -9,8 +9,26 @@ resource "helm_release" "confluent" {
   chart      = "cp-helm-charts"
   namespace  = "${data.template_file.k8s_namespace.rendered}"
 
+  keyring       = ""
   force_update  = true
   recreate_pods = true
+
+  values = ["${data.template_file.confluent_values.rendered}"]
+}
+
+data "template_file" "confluent_values" {
+  template = <<EOF
+---
+cp-kafka:
+  configurationOverrides:
+    "advertised.listeners": |-
+      EXTERNAL://$${dns_prefix}efd-kafka$$$${KAFKA_BROKER_ID}.$${domain_name}:9094
+EOF
+
+  vars {
+    dns_prefix  = "${local.dns_prefix}"
+    domain_name = "${var.domain_name}"
+  }
 }
 
 data "kubernetes_service" "lb0" {

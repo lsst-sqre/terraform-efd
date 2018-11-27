@@ -31,3 +31,12 @@ variable "domain_name" {
   description = "DNS domain name to use when creating route53 records."
   default     = "lsst.codes"
 }
+
+# remove "<env>-" prefix for production
+data "template_file" "dns_prefix" {
+  template = "${replace("${var.env_name}-", "prod-", "")}"
+}
+
+locals {
+  dns_prefix = "${data.template_file.dns_prefix.rendered}"
+}
