@@ -36,3 +36,7 @@ variable "domain_name" {
 data "template_file" "dns_prefix" {
   template = "${replace("${var.env_name}-", "prod-", "")}"
 }
+
+locals {
+  dns_prefix = "${data.template_file.dns_prefix.rendered}"
+}

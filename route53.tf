@@ -1,7 +1,3 @@
-locals {
-  dns_prefix = "${data.template_file.dns_prefix.rendered}"
-}
-
 resource "aws_route53_record" "lb0" {
   zone_id = "${var.aws_zone_id}"
 
