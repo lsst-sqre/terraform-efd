@@ -9,3 +9,6 @@ output "lb1" {
 output "lb2" {
   value = "${data.template_file.lb2_ip.rendered}"
 }
+output "json" {
+  value = "${module.gke.client_key}"
+}

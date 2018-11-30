@@ -1,0 +1,22 @@
+# stable/grafana chart release values
+
+# Add a persistent volume to maintain dashboards between restarts
+persistence:
+  enabled: true
+  size: 1Gi
+  accessModes:
+    - ReadWriteOnce
+
+# Add Prometheus as the default datasource
+datasources:
+  datasources.yaml:
+    apiVersion: 1
+    datasources:
+    - name: Prometheus
+      type: prometheus
+      # change if prometheus release name or namespace is changed
+      # To get the server url:
+      # echo http://$(kubectl get service --namespace default -l "app=prometheus,component=server" -o jsonpath="{.items[0].metadata.name}").default.svc.cluster.local
+      url: http://prometheus-server.default.svc.cluster.local
+      access: proxy
+      isDefault: true

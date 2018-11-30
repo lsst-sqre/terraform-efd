@@ -17,11 +17,6 @@ data "template_file" "gke_cluster_name" {
   template = "${var.deploy_name}-${var.env_name}"
 }
 
-# k8s namespace
-data "template_file" "k8s_namespace" {
-  template = "${var.deploy_name}"
-}
-
 variable "aws_zone_id" {
   description = "route53 Hosted Zone ID to manage DNS records in."
   default     = "Z3TH0HRSNU67AM"
@@ -38,5 +33,8 @@ data "template_file" "dns_prefix" {
 }
 
 locals {
-  dns_prefix = "${data.template_file.dns_prefix.rendered}"
+  dns_prefix               = "${data.template_file.dns_prefix.rendered}"
+  prometheus_k8s_namespace = "prometheus"
+  kafka_k8s_namespace      = "kafka"
+  grafana_k8s_namespace    = "grafana"
 }
