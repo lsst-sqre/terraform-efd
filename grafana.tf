@@ -53,11 +53,28 @@ ingress:
     - secretName: $${grafana_secret_name}
       hosts:
         - $${grafana_fqdn}
+grafana.ini:
+  auth.github:
+    enabled: true
+    client_id: $${client_id}
+    client_secret: $${client_secret}
+    scopes: user:email,read:org
+    auth_url: https://github.com/login/oauth/authorize
+    token_url: https://github.com/login/oauth/access_token
+    api_url: https://api.github.com/user
+    allow_sign_up: true
+    # space-delimited organization names
+    allowed_organizations: $${allowed_organizations}
+  server:
+    root_url: https://$${grafana_fqdn}
 EOF
 
   vars {
     grafana_fqdn             = "${local.grafana_fqdn}"
     grafana_secret_name      = "${local.grafana_secret_name}"
+    client_id                = "${var.grafana_oauth_client_id}"
+    client_secret            = "${var.grafana_oauth_client_secret}"
+    allowed_organizations    = "lsst-sqre"
   }
 }
 

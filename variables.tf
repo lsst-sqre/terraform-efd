@@ -32,6 +32,14 @@ data "template_file" "dns_prefix" {
   template = "${replace("${var.env_name}-", "prod-", "")}"
 }
 
+variable "grafana_oauth_client_id" {
+  description = "github oauth Client ID for grafana"
+}
+
+variable "grafana_oauth_client_secret" {
+  description = "github oauth Client Secret for grafana."
+}
+
 locals {
   dns_prefix                  = "${data.template_file.dns_prefix.rendered}"
   prometheus_k8s_namespace    = "prometheus"
