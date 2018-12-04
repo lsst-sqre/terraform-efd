@@ -12,3 +12,7 @@ output "lb2" {
 output "json" {
   value = "${module.gke.client_key}"
 }
+
+output "nginx_ingress" {
+  value = "${data.template_file.nginx_ingress_ip.rendered}"
+}

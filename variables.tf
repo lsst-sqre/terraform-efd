@@ -33,8 +33,9 @@ data "template_file" "dns_prefix" {
 }
 
 locals {
-  dns_prefix               = "${data.template_file.dns_prefix.rendered}"
-  prometheus_k8s_namespace = "prometheus"
-  kafka_k8s_namespace      = "kafka"
-  grafana_k8s_namespace    = "grafana"
+  dns_prefix                  = "${data.template_file.dns_prefix.rendered}"
+  prometheus_k8s_namespace    = "prometheus"
+  kafka_k8s_namespace         = "kafka"
+  grafana_k8s_namespace       = "grafana"
+  nginx_ingress_k8s_namespace = "nginx-ingress"
 }
