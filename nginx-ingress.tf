@@ -7,9 +7,10 @@ resource "kubernetes_namespace" "nginx_ingress" {
 }
 
 resource "helm_release" "nginx_ingress" {
-  name       = "nginx-ingress"
-  chart      = "stable/nginx-ingress"
-  namespace  = "${local.nginx_ingress_k8s_namespace}"
+  name      = "nginx-ingress"
+  chart     = "stable/nginx-ingress"
+  namespace = "${local.nginx_ingress_k8s_namespace}"
+  version   = "1.0.1"
 
   keyring       = ""
   force_update  = true
