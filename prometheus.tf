@@ -9,9 +9,10 @@ resource "kubernetes_namespace" "prometheus" {
 }
 
 resource "helm_release" "prometheus" {
-  name       = "prometheus"
-  chart      = "stable/prometheus"
-  namespace  = "${local.prometheus_k8s_namespace}"
+  name      = "prometheus"
+  chart     = "stable/prometheus"
+  namespace = "${local.prometheus_k8s_namespace}"
+  version   = "8.1.0"
 
   keyring       = ""
   force_update  = true
