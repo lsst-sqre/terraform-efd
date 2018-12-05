@@ -7,7 +7,7 @@ module "gke" {
   name           = "${data.template_file.gke_cluster_name.rendered}"
   google_project = "${var.google_project}"
   gke_version    = "1.11.3-gke.18"
-  machine_type   = "n1-standard-1"
+  machine_type   = "n1-standard-2"
 }
 
 provider "kubernetes" {
