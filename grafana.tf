@@ -13,6 +13,7 @@ resource "helm_release" "grafana" {
   name       = "grafana"
   chart      = "stable/grafana"
   namespace  = "${local.grafana_k8s_namespace}"
+  version    = "1.20.0"
 
   keyring       = ""
   force_update  = true
