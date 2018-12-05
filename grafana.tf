@@ -30,9 +30,23 @@ resource "helm_release" "grafana" {
   ]
 }
 
+resource "kubernetes_secret" "grafana_tls" {
+  metadata {
+    name      = "${local.grafana_secret_name}"
+    namespace = "${local.grafana_k8s_namespace}"
+  }
+
+  data {
+    tls.crt = "${file("${path.module}/lsst-certs/lsst.codes/2018/lsst.codes_chain.pem")}"
+    tls.key  = "${file("${path.module}/lsst-certs/lsst.codes/2018/lsst.codes.key")}"
+  }
+}
+
 data "template_file" "grafana_values" {
   template = <<EOF
 ---
+adminUser: admin
+adminPassword: $${grafana_admin_pass}
 service:
   # ingress on gke requires "NodePort" or "LoadBalancer"
   type: NodePort
@@ -54,6 +68,16 @@ ingress:
     - secretName: $${grafana_secret_name}
       hosts:
         - $${grafana_fqdn}
+# Add Prometheus as the default datasource
+datasources:
+  datasources.yaml:
+    apiVersion: 1
+    datasources:
+    - name: Prometheus
+      type: prometheus
+      url: http://prometheus-server.$${prometheus_k8s_namespace}.svc.cluster.local
+      access: proxy
+      isDefault: true
 grafana.ini:
   auth.github:
     enabled: true
@@ -65,28 +89,80 @@ grafana.ini:
     api_url: https://api.github.com/user
     allow_sign_up: true
     # space-delimited organization names
-    allowed_organizations: $${allowed_organizations}
+    #allowed_organizations:
+    # comma seperated list of team ids
+    team_ids: "$${team_ids}"
   server:
     root_url: https://$${grafana_fqdn}
+  users:
+    auto_assign_org_role: Admin
+dashboardproviders.yaml:
+  apiVersion: 1
+  providers:
+  - name: 'default'
+    orgId: 1
+    folder: ''
+    type: file
+    disableDeletion: false
+    updateIntervalSeconds: 15
+    editable: true
+    options:
+      path: /var/lib/grafana/dashboards/default
+# the init container url download appears to be broken...
+#dashboards:
+#  default:
+#    some-dashboard:
+#      url: https://raw.githubusercontent.com/confluentinc/cp-helm-charts/700b4326352cf5220e66e6976064740b8c1976c7/grafana-dashboard/confluent-open-source-grafana-dashboard.json
 EOF
 
   vars {
     grafana_fqdn             = "${local.grafana_fqdn}"
     grafana_secret_name      = "${local.grafana_secret_name}"
+    grafana_admin_pass       = "${var.grafana_admin_pass}"
+    prometheus_k8s_namespace = "${local.prometheus_k8s_namespace}"
     client_id                = "${var.grafana_oauth_client_id}"
     client_secret            = "${var.grafana_oauth_client_secret}"
-    allowed_organizations    = "lsst-sqre"
+    team_ids                 = "${var.grafana_oauth_team_ids}"
   }
 }
 
-resource "kubernetes_secret" "grafana_tls" {
-  metadata {
-    name      = "${local.grafana_secret_name}"
-    namespace = "${local.grafana_k8s_namespace}"
-  }
+provider "grafana" {
+  url  = "https://${local.grafana_fqdn}"
+  auth = "admin:${var.grafana_admin_pass}"
+}
 
-  data {
-    tls.crt = "${file("${path.module}/lsst-certs/lsst.codes/2018/lsst.codes_chain.pem")}"
-    tls.key  = "${file("${path.module}/lsst-certs/lsst.codes/2018/lsst.codes.key")}"
+resource "grafana_dashboard" "confluent" {
+  config_json = "${data.template_file.confluent_grafana_dashboard.rendered}"
+
+  depends_on = ["helm_release.grafana"]
+}
+
+# confluent dashboard copied from:
+# https://raw.githubusercontent.com/confluentinc/cp-helm-charts/700b4326352cf5220e66e6976064740b8c1976c7/grafana-dashboard/confluent-open-source-grafana-dashboard.json
+data "template_file" "confluent_grafana_dashboard" {
+  template = "${file("${path.module}/confluent-open-source-grafana-dashboard.json")}"
+
+  # The confluent provided json includes the variable `${DS_PROMETHEUS}` to be
+  # templated by grafana.  However, neither the stable/grafana chart or the
+  # current tf grafana provider is able to configure "variables".
+  # Coincidentally, this is the same format tf uses for templates...
+  vars {
+    DS_PROMETHEUS = "Prometheus"
+  }
+}
+
+resource "grafana_dashboard" "nginx" {
+  config_json = "${data.template_file.nginx_grafana_dashboard.rendered}"
+
+  depends_on = ["helm_release.grafana"]
+}
+
+# nginx dashboard copied from:
+# https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/grafana/dashboards/nginx.yaml
+data "template_file" "nginx_grafana_dashboard" {
+  template = "${file("${path.module}/nginx.yaml")}"
+
+  vars {
+    DS_PROMETHEUS = "Prometheus"
   }
 }

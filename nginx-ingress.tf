@@ -25,10 +25,14 @@ data "template_file" "nginx_ingress_values" {
 rbac:
   create: true
 controller:
-#  stats:
-#    enabled: true
-#  metrics:
-#    enabled: true
+  stats:
+    enabled: true
+  metrics:
+    enabled: true
+    service:
+      annotations:
+        prometheus.io/scrape: true
+        prometheus.io/port: "10254"
   extraArgs:
     v: 2
 EOF

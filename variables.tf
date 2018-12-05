@@ -40,6 +40,14 @@ variable "grafana_oauth_client_secret" {
   description = "github oauth Client Secret for grafana."
 }
 
+variable "grafana_oauth_team_ids" {
+  description = "github team id (integer value treated as string)"
+}
+
+variable "grafana_admin_pass" {
+  description = "grafana admin account passphrase."
+}
+
 locals {
   dns_prefix                  = "${data.template_file.dns_prefix.rendered}"
   prometheus_k8s_namespace    = "prometheus"
