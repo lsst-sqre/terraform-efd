@@ -20,7 +20,7 @@ resource "helm_release" "confluent" {
   recreate_pods = true
 
   values = [
-    "${file("${path.module}/cp-helm-charts-values.yaml")}",
+    "${file("${path.module}/charts/cp-helm-charts-values.yaml")}",
     "${data.template_file.confluent_values.rendered}",
   ]
 

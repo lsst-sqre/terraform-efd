@@ -20,7 +20,7 @@ resource "helm_release" "grafana" {
   recreate_pods = true
 
   values = [
-    "${file("grafana.yaml")}",
+    "${file("${path.module}/charts/grafana.yaml")}",
     "${data.template_file.grafana_values.rendered}",
   ]
 
