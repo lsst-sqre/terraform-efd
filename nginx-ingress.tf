@@ -17,6 +17,10 @@ resource "helm_release" "nginx_ingress" {
   recreate_pods = true
 
   values = ["${data.template_file.nginx_ingress_values.rendered}"]
+
+  depends_on = [
+    "module.tiller",
+  ]
 }
 
 data "template_file" "nginx_ingress_values" {

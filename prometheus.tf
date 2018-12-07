@@ -20,7 +20,10 @@ resource "helm_release" "prometheus" {
 
   values = ["${data.template_file.prometheus_values.rendered}"]
 
-  depends_on = ["kubernetes_secret.prometheus_tls"]
+  depends_on = [
+    "kubernetes_secret.prometheus_tls",
+    "module.tiller",
+  ]
 }
 
 data "template_file" "prometheus_values" {

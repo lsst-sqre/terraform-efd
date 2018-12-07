@@ -23,6 +23,10 @@ resource "helm_release" "confluent" {
     "${file("${path.module}/cp-helm-charts-values.yaml")}",
     "${data.template_file.confluent_values.rendered}",
   ]
+
+  depends_on = [
+    "module.tiller",
+  ]
 }
 
 data "template_file" "confluent_values" {
