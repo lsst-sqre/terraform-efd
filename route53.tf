@@ -33,3 +33,12 @@ resource "aws_route53_record" "grafana" {
   ttl     = "300"
   records = ["${data.template_file.nginx_ingress_ip.rendered}"]
 }
+
+resource "aws_route53_record" "prometheus" {
+  zone_id = "${var.aws_zone_id}"
+
+  name    = "${local.prometheus_fqdn}"
+  type    = "A"
+  ttl     = "300"
+  records = ["${data.template_file.nginx_ingress_ip.rendered}"]
+}
