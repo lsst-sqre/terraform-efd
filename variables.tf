@@ -48,10 +48,20 @@ variable "grafana_admin_pass" {
   description = "grafana admin account passphrase."
 }
 
+variable "tls_crt_path" {
+  description = "wildcard tls certificate."
+}
+
+variable "tls_key_path" {
+  description = "wildcard tls private key."
+}
+
 locals {
   dns_prefix                  = "${data.template_file.dns_prefix.rendered}"
   prometheus_k8s_namespace    = "prometheus"
   kafka_k8s_namespace         = "kafka"
   grafana_k8s_namespace       = "grafana"
   nginx_ingress_k8s_namespace = "nginx-ingress"
+  tls_crt                     = "${file(var.tls_crt_path)}"
+  tls_key                     = "${file(var.tls_key_path)}"
 }

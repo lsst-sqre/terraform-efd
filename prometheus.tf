@@ -65,7 +65,7 @@ resource "kubernetes_secret" "prometheus_tls" {
   }
 
   data {
-    tls.crt = "${file("${path.module}/lsst-certs/lsst.codes/2018/lsst.codes_chain.pem")}"
-    tls.key  = "${file("${path.module}/lsst-certs/lsst.codes/2018/lsst.codes.key")}"
+    tls.crt = "${local.tls_crt}"
+    tls.key = "${local.tls_key}"
   }
 }
