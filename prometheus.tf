@@ -32,7 +32,7 @@ data "template_file" "prometheus_values" {
 server:
   service:
     # ingress on gke requires "NodePort" or "LoadBalancer"
-    type: LoadBalancer
+    type: NodePort
   ingress:
     ## If true, Prometheus server Ingress will be created
     ##
