@@ -9,10 +9,15 @@ output "lb1" {
 output "lb2" {
   value = "${data.template_file.lb2_ip.rendered}"
 }
-output "json" {
-  value = "${module.gke.client_key}"
-}
 
 output "nginx_ingress" {
   value = "${data.template_file.nginx_ingress_ip.rendered}"
+}
+
+output "grafana_fqdn" {
+  value = "${local.grafana_fqdn}"
+}
+
+output "prometheus_fqdn" {
+  value = "${local.prometheus_fqdn}"
 }
