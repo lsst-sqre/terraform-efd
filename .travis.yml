@@ -4,18 +4,17 @@ language: c
 matrix:
   include:
     - env: TEST=markdownlint
-      language: c
       services:
         - docker
       script: ./tests/mdl.sh
 
     - env: TEST=make
-      language: c
       script: ./tests/make.sh
 
     - env: TEST=terraform
-      language: c
-      script: make test
+      services:
+        - docker
+      script: ./tests/terraform.sh
 
     - env: TEST=yamllint
       language: c
