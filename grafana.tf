@@ -141,7 +141,7 @@ resource "grafana_dashboard" "confluent" {
 # confluent dashboard copied from:
 # https://raw.githubusercontent.com/confluentinc/cp-helm-charts/700b4326352cf5220e66e6976064740b8c1976c7/grafana-dashboard/confluent-open-source-grafana-dashboard.json
 data "template_file" "confluent_grafana_dashboard" {
-  template = "${file("${path.module}/confluent-open-source-grafana-dashboard.json")}"
+  template = "${file("${path.module}/grafana-dashboards/confluent-open-source-grafana-dashboard.json")}"
 
   # The confluent provided json includes the variable `${DS_PROMETHEUS}` to be
   # templated by grafana.  However, neither the stable/grafana chart or the
@@ -161,7 +161,7 @@ resource "grafana_dashboard" "nginx" {
 # nginx dashboard copied from:
 # https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/grafana/dashboards/nginx.yaml
 data "template_file" "nginx_grafana_dashboard" {
-  template = "${file("${path.module}/nginx.yaml")}"
+  template = "${file("${path.module}/grafana-dashboards/nginx.yaml")}"
 
   vars {
     DS_PROMETHEUS = "Prometheus"
