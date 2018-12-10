@@ -24,8 +24,9 @@ resource "helm_release" "grafana" {
   ]
 
   depends_on = [
-    "module.tiller",
+    "kubernetes_namespace.grafana",
     "kubernetes_secret.grafana_tls",
+    "module.tiller",
     "helm_release.nginx_ingress",
   ]
 }

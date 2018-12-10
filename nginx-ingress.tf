@@ -21,6 +21,7 @@ resource "helm_release" "nginx_ingress" {
   ]
 
   depends_on = [
+    "kubernetes_namespace.nginx_ingress",
     "module.tiller",
   ]
 }

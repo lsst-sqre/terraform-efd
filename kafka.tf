@@ -25,6 +25,7 @@ resource "helm_release" "confluent" {
   ]
 
   depends_on = [
+    "kubernetes_namespace.kafka",
     "module.tiller",
   ]
 }

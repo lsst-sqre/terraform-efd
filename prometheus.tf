@@ -23,8 +23,10 @@ resource "helm_release" "prometheus" {
   ]
 
   depends_on = [
+    "kubernetes_namespace.prometheus",
     "kubernetes_secret.prometheus_tls",
     "module.tiller",
+    "helm_release.nginx_ingress",
   ]
 }
 
