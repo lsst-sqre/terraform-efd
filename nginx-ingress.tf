@@ -38,6 +38,6 @@ data "kubernetes_service" "nginx_ingress" {
   depends_on = ["helm_release.nginx_ingress"]
 }
 
-data "template_file" "nginx_ingress_ip" {
-  template = "${lookup(data.kubernetes_service.nginx_ingress.load_balancer_ingress[0], "ip")}"
+locals {
+  nginx_ingress_ip = "${lookup(data.kubernetes_service.nginx_ingress.load_balancer_ingress[0], "ip")}"
 }

@@ -1,17 +1,17 @@
-output "lb0" {
-  value = "${data.template_file.lb0_ip.rendered}"
+output "confluent_lb0" {
+  value = "${local.confluent_lb0_ip}"
 }
 
-output "lb1" {
-  value = "${data.template_file.lb1_ip.rendered}"
+output "confluent_lb1" {
+  value = "${local.confluent_lb1_ip}"
 }
 
-output "lb2" {
-  value = "${data.template_file.lb2_ip.rendered}"
+output "confluent_lb2" {
+  value = "${local.confluent_lb2_ip}"
 }
 
 output "nginx_ingress" {
-  value = "${data.template_file.nginx_ingress_ip.rendered}"
+  value = "${local.nginx_ingress_ip}"
 }
 
 output "grafana_fqdn" {

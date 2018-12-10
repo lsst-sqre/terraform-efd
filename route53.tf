@@ -4,7 +4,7 @@ resource "aws_route53_record" "kafka_lb0" {
   name    = "${local.dns_prefix}efd-kafka0.${var.domain_name}"
   type    = "A"
   ttl     = "300"
-  records = ["${data.template_file.lb0_ip.rendered}"]
+  records = ["${local.confluent_lb0_ip}"]
 }
 
 resource "aws_route53_record" "kafka_lb1" {
@@ -13,7 +13,7 @@ resource "aws_route53_record" "kafka_lb1" {
   name    = "${local.dns_prefix}efd-kafka1.${var.domain_name}"
   type    = "A"
   ttl     = "300"
-  records = ["${data.template_file.lb1_ip.rendered}"]
+  records = ["${local.confluent_lb1_ip}"]
 }
 
 resource "aws_route53_record" "kafka_lb2" {
@@ -22,7 +22,7 @@ resource "aws_route53_record" "kafka_lb2" {
   name    = "${local.dns_prefix}efd-kafka2.${var.domain_name}"
   type    = "A"
   ttl     = "300"
-  records = ["${data.template_file.lb1_ip.rendered}"]
+  records = ["${local.confluent_lb2_ip}"]
 }
 
 resource "aws_route53_record" "grafana" {
@@ -31,7 +31,7 @@ resource "aws_route53_record" "grafana" {
   name    = "${local.grafana_fqdn}"
   type    = "A"
   ttl     = "300"
-  records = ["${data.template_file.nginx_ingress_ip.rendered}"]
+  records = ["${local.nginx_ingress_ip}"]
 }
 
 resource "aws_route53_record" "prometheus" {
@@ -40,5 +40,5 @@ resource "aws_route53_record" "prometheus" {
   name    = "${local.prometheus_fqdn}"
   type    = "A"
   ttl     = "300"
-  records = ["${data.template_file.nginx_ingress_ip.rendered}"]
+  records = ["${local.nginx_ingress_ip}"]
 }

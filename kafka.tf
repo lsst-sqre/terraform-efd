@@ -71,14 +71,8 @@ data "kubernetes_service" "lb2" {
   depends_on = ["helm_release.confluent"]
 }
 
-data "template_file" "lb0_ip" {
-  template = "${lookup(data.kubernetes_service.lb0.load_balancer_ingress[0], "ip")}"
-}
-
-data "template_file" "lb1_ip" {
-  template = "${lookup(data.kubernetes_service.lb1.load_balancer_ingress[0], "ip")}"
-}
-
-data "template_file" "lb2_ip" {
-  template = "${lookup(data.kubernetes_service.lb2.load_balancer_ingress[0], "ip")}"
+locals {
+  confluent_lb0_ip = "${lookup(data.kubernetes_service.lb0.load_balancer_ingress[0], "ip")}"
+  confluent_lb1_ip = "${lookup(data.kubernetes_service.lb1.load_balancer_ingress[0], "ip")}"
+  confluent_lb2_ip = "${lookup(data.kubernetes_service.lb2.load_balancer_ingress[0], "ip")}"
 }
