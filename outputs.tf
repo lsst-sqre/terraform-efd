@@ -10,7 +10,7 @@ output "confluent_lb2" {
   value = "${local.confluent_lb2_ip}"
 }
 
-output "nginx_ingress" {
+output "nginx_ingress_ip" {
   value = "${local.nginx_ingress_ip}"
 }
 
