@@ -18,7 +18,9 @@ resource "helm_release" "prometheus" {
   force_update  = true
   recreate_pods = true
 
-  values = ["${data.template_file.prometheus_values.rendered}"]
+  values = [
+    "${data.template_file.prometheus_values.rendered}",
+  ]
 
   depends_on = [
     "kubernetes_secret.prometheus_tls",
@@ -27,31 +29,7 @@ resource "helm_release" "prometheus" {
 }
 
 data "template_file" "prometheus_values" {
-  template = <<EOF
----
-server:
-  service:
-    # ingress on gke requires "NodePort" or "LoadBalancer"
-    type: NodePort
-  ingress:
-    ## If true, Prometheus server Ingress will be created
-    ##
-    enabled: true
-
-    ## Prometheus server Ingress hostnames
-    ## Must be provided if Ingress is enabled
-    ##
-    hosts:
-      - $${prometheus_fqdn}
-
-    ## Prometheus server Ingress TLS configuration
-    ## Secrets must be manually created in the namespace
-    ##
-    tls:
-      - secretName: prometheus-server-tls
-        hosts:
-          - $${prometheus_fqdn}
-EOF
+  template = "${file("${path.module}/charts/prometheus.yaml")}"
 
   vars {
     prometheus_fqdn = "${local.prometheus_fqdn}"
