@@ -44,6 +44,11 @@ variable "grafana_oauth_team_ids" {
   description = "github team id (integer value treated as string)"
 }
 
+variable "grafana_admin_user" {
+  description = "grafana admin account name."
+  default     = "admin"
+}
+
 variable "grafana_admin_pass" {
   description = "grafana admin account passphrase."
 }

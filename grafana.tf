@@ -46,7 +46,7 @@ resource "kubernetes_secret" "grafana_tls" {
 data "template_file" "grafana_values" {
   template = <<EOF
 ---
-adminUser: admin
+adminUser: $${grafana_admin_user}
 adminPassword: $${grafana_admin_pass}
 service:
   # ingress on gke requires "NodePort" or "LoadBalancer"
@@ -119,6 +119,7 @@ EOF
   vars {
     grafana_fqdn             = "${local.grafana_fqdn}"
     grafana_secret_name      = "${local.grafana_secret_name}"
+    grafana_admin_user       = "${var.grafana_admin_user}"
     grafana_admin_pass       = "${var.grafana_admin_pass}"
     prometheus_k8s_namespace = "${local.prometheus_k8s_namespace}"
     client_id                = "${var.grafana_oauth_client_id}"
@@ -129,7 +130,7 @@ EOF
 
 provider "grafana" {
   url  = "https://${local.grafana_fqdn}"
-  auth = "admin:${var.grafana_admin_pass}"
+  auth = "${var.grafana_admin_user}:${var.grafana_admin_pass}"
 }
 
 resource "grafana_dashboard" "confluent" {
