@@ -20,7 +20,6 @@ resource "helm_release" "grafana" {
   recreate_pods = true
 
   values = [
-    "${file("${path.module}/charts/grafana.yaml")}",
     "${data.template_file.grafana_values.rendered}",
   ]
 
@@ -44,77 +43,7 @@ resource "kubernetes_secret" "grafana_tls" {
 }
 
 data "template_file" "grafana_values" {
-  template = <<EOF
----
-adminUser: $${grafana_admin_user}
-adminPassword: $${grafana_admin_pass}
-service:
-  # ingress on gke requires "NodePort" or "LoadBalancer"
-  type: NodePort
-ingress:
-  enabled: true
-  annotations:
-    kubernetes.io/ingress.class: nginx
-    nginx.ingress.kubernetes.io/ssl-redirect: "true"
-    nginx.ingress.kubernetes.io/affinity: "cookie"
-    nginx.ingress.kubernetes.io/proxy-body-size: "0m"
-    nginx.ingress.kubernetes.io/rewrite-target: /
-    nginx.ingress.kubernetes.io/configuration-snippet: |
-      proxy_set_header X-Forwarded-Proto https;
-      proxy_set_header X-Forwarded-Port 443;
-      proxy_set_header X-Forwarded-Path /;
-  hosts:
-    - $${grafana_fqdn}
-  tls:
-    - secretName: $${grafana_secret_name}
-      hosts:
-        - $${grafana_fqdn}
-# Add Prometheus as the default datasource
-datasources:
-  datasources.yaml:
-    apiVersion: 1
-    datasources:
-    - name: Prometheus
-      type: prometheus
-      url: http://prometheus-server.$${prometheus_k8s_namespace}.svc.cluster.local
-      access: proxy
-      isDefault: true
-grafana.ini:
-  auth.github:
-    enabled: true
-    client_id: $${client_id}
-    client_secret: $${client_secret}
-    scopes: user:email,read:org
-    auth_url: https://github.com/login/oauth/authorize
-    token_url: https://github.com/login/oauth/access_token
-    api_url: https://api.github.com/user
-    allow_sign_up: true
-    # space-delimited organization names
-    #allowed_organizations:
-    # comma seperated list of team ids
-    team_ids: "$${team_ids}"
-  server:
-    root_url: https://$${grafana_fqdn}
-  users:
-    auto_assign_org_role: Admin
-dashboardproviders.yaml:
-  apiVersion: 1
-  providers:
-  - name: 'default'
-    orgId: 1
-    folder: ''
-    type: file
-    disableDeletion: false
-    updateIntervalSeconds: 15
-    editable: true
-    options:
-      path: /var/lib/grafana/dashboards/default
-# the init container url download appears to be broken...
-#dashboards:
-#  default:
-#    some-dashboard:
-#      url: https://raw.githubusercontent.com/confluentinc/cp-helm-charts/700b4326352cf5220e66e6976064740b8c1976c7/grafana-dashboard/confluent-open-source-grafana-dashboard.json
-EOF
+  template = "${file("${path.module}/charts/grafana.yaml")}"
 
   vars {
     grafana_fqdn             = "${local.grafana_fqdn}"
