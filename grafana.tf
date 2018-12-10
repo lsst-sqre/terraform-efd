@@ -1,5 +1,5 @@
 locals {
-  grafana_fqdn = "${local.dns_prefix}grafana-${var.deploy_name}.${var.domain_name}"
+  grafana_fqdn        = "${local.dns_prefix}grafana-${var.deploy_name}.${var.domain_name}"
   grafana_secret_name = "grafana-server-tls"
 }
 
@@ -10,10 +10,10 @@ resource "kubernetes_namespace" "grafana" {
 }
 
 resource "helm_release" "grafana" {
-  name       = "grafana"
-  chart      = "stable/grafana"
-  namespace  = "${local.grafana_k8s_namespace}"
-  version    = "1.20.0"
+  name      = "grafana"
+  chart     = "stable/grafana"
+  namespace = "${local.grafana_k8s_namespace}"
+  version   = "1.20.0"
 
   keyring       = ""
   force_update  = true
