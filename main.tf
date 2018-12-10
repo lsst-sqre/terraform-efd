@@ -14,11 +14,9 @@ module "gke" {
 provider "kubernetes" {
   version = "~> 1.4.0"
 
-  #XXX auth is broken
-  #load_config_file = false
+  load_config_file = true
 
   host                   = "${module.gke.host}"
-  client_key             = "${module.gke.client_key}"
   cluster_ca_certificate = "${base64decode(module.gke.cluster_ca_certificate)}"
 }
 
@@ -37,7 +35,6 @@ provider "helm" {
 
   kubernetes {
     host                   = "${module.gke.host}"
-    client_key             = "${module.gke.client_key}"
     cluster_ca_certificate = "${base64decode(module.gke.cluster_ca_certificate)}"
   }
 }
