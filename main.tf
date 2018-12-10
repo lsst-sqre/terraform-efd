@@ -23,7 +23,7 @@ provider "kubernetes" {
 }
 
 module "tiller" {
-  source          = "git::https://github.com/lsst-sqre/terraform-tinfoil-tiller.git//?ref = master"
+  source          = "git::https://github.com/lsst-sqre/terraform-tinfoil-tiller.git//?ref=master"
   namespace       = "kube-system"
   service_account = "tiller"
 }
