@@ -12,7 +12,7 @@ module "gke" {
 }
 
 provider "kubernetes" {
-  version = "~> 1.3"
+  version = "~> 1.4.0"
 
   #XXX auth is broken
   #load_config_file = false
