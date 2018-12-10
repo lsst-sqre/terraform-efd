@@ -1,5 +1,4 @@
 ---
-# yamllint disable rule:line-length
 # stable/grafana chart release values
 
 # Add a persistent volume to maintain dashboards between restarts
