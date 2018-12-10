@@ -8,9 +8,6 @@ matrix:
         - docker
       script: ./tests/mdl.sh
 
-    - env: TEST=make
-      script: ./tests/make.sh
-
     - env: TEST=terraform
       services:
         - docker

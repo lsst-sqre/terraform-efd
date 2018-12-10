@@ -1,6 +1,3 @@
-bin
-creds.sh
-downloads/
 *.swp
 .terraform
 *tfstate*
