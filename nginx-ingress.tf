@@ -16,7 +16,9 @@ resource "helm_release" "nginx_ingress" {
   force_update  = true
   recreate_pods = true
 
-  values = ["${data.template_file.nginx_ingress_values.rendered}"]
+  values = [
+    "${data.template_file.nginx_ingress_values.rendered}",
+  ]
 
   depends_on = [
     "module.tiller",
@@ -24,22 +26,7 @@ resource "helm_release" "nginx_ingress" {
 }
 
 data "template_file" "nginx_ingress_values" {
-  template = <<EOF
----
-rbac:
-  create: true
-controller:
-  stats:
-    enabled: true
-  metrics:
-    enabled: true
-    service:
-      annotations:
-        prometheus.io/scrape: true
-        prometheus.io/port: "10254"
-  extraArgs:
-    v: 2
-EOF
+  template = "${file("${path.module}/charts/nginx-ingress.yaml")}"
 }
 
 data "kubernetes_service" "nginx_ingress" {
