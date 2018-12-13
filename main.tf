@@ -3,11 +3,10 @@ provider "template" {
 }
 
 module "gke" {
-  source         = "github.com/lsst-sqre/terraform-gke-std"
-  name           = "${data.template_file.gke_cluster_name.rendered}"
+  source         = "git::https://github.com/lsst-sqre/terraform-gke-std.git//?ref=master"
   name           = "${local.gke_cluster_name}"
   google_project = "${var.google_project}"
-  gke_version    = "1.11.3-gke.18"
+  gke_version    = "latest"
   machine_type   = "n1-standard-2"
 }
 
