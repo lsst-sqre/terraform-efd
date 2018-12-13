@@ -51,6 +51,11 @@ variable "tls_key_path" {
   description = "wildcard tls private key."
 }
 
+variable "dns_enable" {
+  description = "create route53 dns records."
+  default     = false
+}
+
 locals {
   # remove "<env>-" prefix for production
   dns_prefix = "${replace("${var.env_name}-", "prod-", "")}"
