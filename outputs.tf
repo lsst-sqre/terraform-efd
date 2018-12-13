@@ -1,11 +1,23 @@
-output "lb0" {
-  value = "${data.template_file.lb0_ip.rendered}"
+output "confluent_lb0" {
+  value = "${local.confluent_lb0_ip}"
 }
 
-output "lb1" {
-  value = "${data.template_file.lb1_ip.rendered}"
+output "confluent_lb1" {
+  value = "${local.confluent_lb1_ip}"
 }
 
-output "lb2" {
-  value = "${data.template_file.lb2_ip.rendered}"
+output "confluent_lb2" {
+  value = "${local.confluent_lb2_ip}"
+}
+
+output "nginx_ingress_ip" {
+  value = "${local.nginx_ingress_ip}"
+}
+
+output "grafana_fqdn" {
+  value = "${local.grafana_fqdn}"
+}
+
+output "prometheus_fqdn" {
+  value = "${local.prometheus_fqdn}"
 }

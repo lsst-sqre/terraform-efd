@@ -1,3 +1,9 @@
+resource "kubernetes_namespace" "kafka" {
+  metadata {
+    name = "${local.kafka_k8s_namespace}"
+  }
+}
+
 resource "helm_repository" "confluentinc" {
   name = "confluentinc"
   url  = "https://raw.githubusercontent.com/lsst-sqre/cp-helm-charts/master"
@@ -7,13 +13,21 @@ resource "helm_release" "confluent" {
   name       = "confluent"
   repository = "${helm_repository.confluentinc.metadata.0.name}"
   chart      = "cp-helm-charts"
-  namespace  = "${data.template_file.k8s_namespace.rendered}"
+  namespace  = "${local.kafka_k8s_namespace}"
 
   keyring       = ""
   force_update  = true
   recreate_pods = true
 
-  values = ["${data.template_file.confluent_values.rendered}"]
+  values = [
+    "${file("${path.module}/charts/cp-helm-charts-values.yaml")}",
+    "${data.template_file.confluent_values.rendered}",
+  ]
+
+  depends_on = [
+    "kubernetes_namespace.kafka",
+    "module.tiller",
+  ]
 }
 
 data "template_file" "confluent_values" {
@@ -34,7 +48,7 @@ EOF
 data "kubernetes_service" "lb0" {
   metadata {
     name      = "confluent-0-loadbalancer"
-    namespace = "${data.template_file.k8s_namespace.rendered}"
+    namespace = "${local.kafka_k8s_namespace}"
   }
 
   depends_on = ["helm_release.confluent"]
@@ -43,7 +57,7 @@ data "kubernetes_service" "lb0" {
 data "kubernetes_service" "lb1" {
   metadata {
     name      = "confluent-1-loadbalancer"
-    namespace = "${data.template_file.k8s_namespace.rendered}"
+    namespace = "${local.kafka_k8s_namespace}"
   }
 
   depends_on = ["helm_release.confluent"]
@@ -52,20 +66,14 @@ data "kubernetes_service" "lb1" {
 data "kubernetes_service" "lb2" {
   metadata {
     name      = "confluent-2-loadbalancer"
-    namespace = "${data.template_file.k8s_namespace.rendered}"
+    namespace = "${local.kafka_k8s_namespace}"
   }
 
   depends_on = ["helm_release.confluent"]
 }
 
-data "template_file" "lb0_ip" {
-  template = "${lookup(data.kubernetes_service.lb0.load_balancer_ingress[0], "ip")}"
-}
-
-data "template_file" "lb1_ip" {
-  template = "${lookup(data.kubernetes_service.lb1.load_balancer_ingress[0], "ip")}"
-}
-
-data "template_file" "lb2_ip" {
-  template = "${lookup(data.kubernetes_service.lb2.load_balancer_ingress[0], "ip")}"
+locals {
+  confluent_lb0_ip = "${lookup(data.kubernetes_service.lb0.load_balancer_ingress[0], "ip")}"
+  confluent_lb1_ip = "${lookup(data.kubernetes_service.lb1.load_balancer_ingress[0], "ip")}"
+  confluent_lb2_ip = "${lookup(data.kubernetes_service.lb2.load_balancer_ingress[0], "ip")}"
 }

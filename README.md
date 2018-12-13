@@ -29,11 +29,15 @@ repo configuration.
 Outputs
 ---
 
-* `lb0`
-* `lb1`
-* `lb2`
-
 `load-balancer` service IPs.
+
+* `confluent_lb0`
+* `confluent_lb1`
+* `confluent_lb2`
+
+* `nginx_ingress_ip`
+* `grafana_fqdn`
+* `prometheus_fqdn`
 
 See Also
 ---

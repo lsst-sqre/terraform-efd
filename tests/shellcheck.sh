@@ -3,8 +3,8 @@
 set -e
 shopt -s globstar nullglob
 
-CHECK=( **/Makefile )
-IGNORE=()
+CHECK=( **/*.sh )
+IGNORE=( environments/** .bundle/** .tmp/** )
 
 for c in "${!CHECK[@]}"; do
   for i in "${IGNORE[@]}"; do
@@ -20,12 +20,7 @@ for c in "${CHECK[@]}"; do
 done
 echo
 
-for f in "${CHECK[@]}"; do
-  ( set -e
-    cd "$(dirname "$f")"
-    echo "checking $f"
-    make --dry-run --warn-undefined-variables
-  )
-done
+docker run -ti -v "$(pwd):$(pwd)" -w "$(pwd)" \
+  koalaman/shellcheck-alpine:v0.6.0 shellcheck -x "${CHECK[@]}"
 
 # vim: tabstop=2 shiftwidth=2 expandtab
