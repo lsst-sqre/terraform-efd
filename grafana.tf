@@ -59,9 +59,14 @@ data "template_file" "grafana_values" {
 }
 
 resource "grafana_dashboard" "confluent" {
+  count = "${var.dns_enable ? 1 : 0}"
+
   config_json = "${data.template_file.confluent_grafana_dashboard.rendered}"
 
-  depends_on = ["helm_release.grafana"]
+  depends_on = [
+    "helm_release.grafana",
+    "aws_route53_record.grafana",
+  ]
 }
 
 # confluent dashboard copied from:
@@ -79,9 +84,14 @@ data "template_file" "confluent_grafana_dashboard" {
 }
 
 resource "grafana_dashboard" "nginx" {
+  count = "${var.dns_enable ? 1 : 0}"
+
   config_json = "${data.template_file.nginx_grafana_dashboard.rendered}"
 
-  depends_on = ["helm_release.grafana"]
+  depends_on = [
+    "helm_release.grafana",
+    "aws_route53_record.grafana",
+  ]
 }
 
 # nginx dashboard copied from:
