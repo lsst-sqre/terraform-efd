@@ -42,3 +42,10 @@ provider "aws" {
   version = "~> 1.21"
   region  = "us-east-1"
 }
+
+provider "grafana" {
+  version = "~> 1.3"
+
+  url  = "https://${local.grafana_fqdn}"
+  auth = "${var.grafana_admin_user}:${var.grafana_admin_pass}"
+}

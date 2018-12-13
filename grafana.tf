@@ -58,11 +58,6 @@ data "template_file" "grafana_values" {
   }
 }
 
-provider "grafana" {
-  url  = "https://${local.grafana_fqdn}"
-  auth = "${var.grafana_admin_user}:${var.grafana_admin_pass}"
-}
-
 resource "grafana_dashboard" "confluent" {
   config_json = "${data.template_file.confluent_grafana_dashboard.rendered}"
 
