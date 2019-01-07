@@ -23,6 +23,7 @@ module "tiller" {
   source          = "git::https://github.com/lsst-sqre/terraform-tinfoil-tiller.git//?ref=master"
   namespace       = "kube-system"
   service_account = "tiller"
+  tiller_image    = "gcr.io/kubernetes-helm/tiller:v2.9.0"
 }
 
 provider "helm" {
