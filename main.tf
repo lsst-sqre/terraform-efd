@@ -11,6 +11,21 @@ module "gke" {
   machine_type       = "n1-standard-2"
 }
 
+# haxx...
+resource "null_resource" "gcloud_container_clusters_get-credentials" {
+  triggers = {
+    google_container_cluster_endpoint = "${module.gke.id}"
+  }
+
+  provisioner "local-exec" {
+    command = "gcloud container clusters get-credentials ${local.gke_cluster_name}"
+  }
+
+  depends_on = [
+    "module.gke",
+  ]
+}
+
 provider "kubernetes" {
   version = "~> 1.4.0"
 
