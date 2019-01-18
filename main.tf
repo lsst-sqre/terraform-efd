@@ -3,11 +3,12 @@ provider "template" {
 }
 
 module "gke" {
-  source         = "git::https://github.com/lsst-sqre/terraform-gke-std.git//?ref=master"
-  name           = "${local.gke_cluster_name}"
-  google_project = "${var.google_project}"
-  gke_version    = "latest"
-  machine_type   = "n1-standard-2"
+  source             = "git::https://github.com/lsst-sqre/terraform-gke-std.git//?ref=master"
+  name               = "${local.gke_cluster_name}"
+  google_project     = "${var.google_project}"
+  gke_version        = "latest"
+  initial_node_count = 3
+  machine_type       = "n1-standard-2"
 }
 
 provider "kubernetes" {
