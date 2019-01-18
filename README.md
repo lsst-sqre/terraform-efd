@@ -20,27 +20,62 @@ terragrunt = {
 }
 ```
 
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+## Inputs
+
+| Name | Description | Type | Default | Required |
+|------|-------------|:----:|:-----:|:-----:|
+| aws\_zone\_id | route53 Hosted Zone ID to manage DNS records in. | string | `"Z3TH0HRSNU67AM"` | no |
+| deploy\_name | Name of deployment. | string | `"efd-kafka"` | no |
+| dns\_enable | create route53 dns records. | string | `"false"` | no |
+| domain\_name | DNS domain name to use when creating route53 records. | string | `"lsst.codes"` | no |
+| env\_name | Name of deployment environment. | string | n/a | yes |
+| google\_project | google cloud project ID | string | `"plasma-geode-127520"` | no |
+| grafana\_admin\_pass | grafana admin account passphrase. | string | n/a | yes |
+| grafana\_admin\_user | grafana admin account name. | string | `"admin"` | no |
+| grafana\_oauth\_client\_id | github oauth Client ID for grafana | string | n/a | yes |
+| grafana\_oauth\_client\_secret | github oauth Client Secret for grafana. | string | n/a | yes |
+| grafana\_oauth\_team\_ids | github team id (integer value treated as string) | string | n/a | yes |
+| tls\_crt\_path | wildcard tls certificate. | string | n/a | yes |
+| tls\_key\_path | wildcard tls private key. | string | n/a | yes |
+
+## Outputs
+
+| Name | Description |
+|------|-------------|
+| confluent\_lb0 |  |
+| confluent\_lb1 |  |
+| confluent\_lb2 |  |
+| grafana\_fqdn |  |
+| nginx\_ingress\_ip |  |
+| prometheus\_fqdn |  |
+
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+
 `helm`
 ---
 
 Note that the `helm` provider is used, which requires an initialized `helm`
 repo configuration.
 
-Outputs
+`pre-commit` hooks
 ---
 
-`load-balancer` service IPs.
+```bash
+go get github.com/segmentio/terraform-docs
+pip install --user pre-commit
+pre-commit install
 
-* `confluent_lb0`
-* `confluent_lb1`
-* `confluent_lb2`
-
-* `nginx_ingress_ip`
-* `grafana_fqdn`
-* `prometheus_fqdn`
+# manual run
+pre-commit run -a
+```
 
 See Also
 ---
 
 * [`terraform`](https://www.terraform.io/)
 * [`terragrunt`](https://github.com/gruntwork-io/terragrunt)
+* [`terraform-docs`](https://github.com/segmentio/terraform-docs)
+* [`helm`](https://docs.helm.sh/)
+* [`pre-commit`](https://github.com/pre-commit/pre-commit)
+* [`pre-commit-terraform`](https://github.com/antonbabenko/pre-commit-terraform)
