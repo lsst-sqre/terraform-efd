@@ -30,12 +30,15 @@ terragrunt = {
 | dns\_enable | create route53 dns records. | string | `"false"` | no |
 | domain\_name | DNS domain name to use when creating route53 records. | string | n/a | yes |
 | env\_name | Name of deployment environment. | string | n/a | yes |
+| gke\_version | gke master/node version | string | `"latest"` | no |
 | google\_project | google cloud project ID | string | n/a | yes |
 | grafana\_admin\_pass | grafana admin account passphrase. | string | n/a | yes |
 | grafana\_admin\_user | grafana admin account name. | string | `"admin"` | no |
 | grafana\_oauth\_client\_id | github oauth Client ID for grafana | string | n/a | yes |
 | grafana\_oauth\_client\_secret | github oauth Client Secret for grafana. | string | n/a | yes |
 | grafana\_oauth\_team\_ids | github team id (integer value treated as string) | string | n/a | yes |
+| initial\_node\_count | number of gke nodes to start | string | `"3"` | no |
+| machine\_type | machine type of default gke pool nodes | string | `"n1-standard-1"` | no |
 | tls\_crt\_path | wildcard tls certificate. | string | n/a | yes |
 | tls\_key\_path | wildcard tls private key. | string | n/a | yes |
 

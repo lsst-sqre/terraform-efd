@@ -53,6 +53,21 @@ variable "dns_enable" {
   default     = false
 }
 
+variable "initial_node_count" {
+  description = "number of gke nodes to start"
+  default     = 3
+}
+
+variable "gke_version" {
+  description = "gke master/node version"
+  default     = "latest"
+}
+
+variable "machine_type" {
+  description = "machine type of default gke pool nodes"
+  default     = "n1-standard-1"
+}
+
 locals {
   # remove "<env>-" prefix for production
   dns_prefix = "${replace("${var.env_name}-", "prod-", "")}"
