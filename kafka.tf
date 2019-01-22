@@ -13,7 +13,7 @@ resource "helm_release" "confluent" {
   name       = "confluent"
   repository = "${helm_repository.confluentinc.metadata.0.name}"
   chart      = "cp-helm-charts"
-  namespace  = "${local.kafka_k8s_namespace}"
+  namespace  = "${kubernetes_namespace.kafka.metadata.0.name}"
 
   keyring       = ""
   force_update  = true
@@ -25,7 +25,6 @@ resource "helm_release" "confluent" {
   ]
 
   depends_on = [
-    "kubernetes_namespace.kafka",
     "module.tiller",
   ]
 }
@@ -48,7 +47,7 @@ EOF
 data "kubernetes_service" "lb0" {
   metadata {
     name      = "confluent-0-loadbalancer"
-    namespace = "${local.kafka_k8s_namespace}"
+    namespace = "${kubernetes_namespace.kafka.metadata.0.name}"
   }
 
   depends_on = ["helm_release.confluent"]
@@ -57,7 +56,7 @@ data "kubernetes_service" "lb0" {
 data "kubernetes_service" "lb1" {
   metadata {
     name      = "confluent-1-loadbalancer"
-    namespace = "${local.kafka_k8s_namespace}"
+    namespace = "${kubernetes_namespace.kafka.metadata.0.name}"
   }
 
   depends_on = ["helm_release.confluent"]
@@ -66,7 +65,7 @@ data "kubernetes_service" "lb1" {
 data "kubernetes_service" "lb2" {
   metadata {
     name      = "confluent-2-loadbalancer"
-    namespace = "${local.kafka_k8s_namespace}"
+    namespace = "${kubernetes_namespace.kafka.metadata.0.name}"
   }
 
   depends_on = ["helm_release.confluent"]
