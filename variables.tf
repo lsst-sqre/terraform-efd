@@ -1,6 +1,5 @@
 variable "google_project" {
   description = "google cloud project ID"
-  default     = "plasma-geode-127520"
 }
 
 variable "env_name" {
@@ -14,12 +13,10 @@ variable "deploy_name" {
 
 variable "aws_zone_id" {
   description = "route53 Hosted Zone ID to manage DNS records in."
-  default     = "Z3TH0HRSNU67AM"
 }
 
 variable "domain_name" {
   description = "DNS domain name to use when creating route53 records."
-  default     = "lsst.codes"
 }
 
 variable "grafana_oauth_client_id" {
