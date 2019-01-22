@@ -12,7 +12,7 @@ resource "kubernetes_namespace" "grafana" {
 resource "helm_release" "grafana" {
   name      = "grafana"
   chart     = "stable/grafana"
-  namespace = "${local.grafana_k8s_namespace}"
+  namespace = "${kubernetes_namespace.grafana.metadata.0.name}"
   version   = "1.20.0"
 
   keyring       = ""
@@ -24,7 +24,6 @@ resource "helm_release" "grafana" {
   ]
 
   depends_on = [
-    "kubernetes_namespace.grafana",
     "kubernetes_secret.grafana_tls",
     "module.tiller",
     "helm_release.nginx_ingress",
@@ -34,7 +33,7 @@ resource "helm_release" "grafana" {
 resource "kubernetes_secret" "grafana_tls" {
   metadata {
     name      = "${local.grafana_secret_name}"
-    namespace = "${local.grafana_k8s_namespace}"
+    namespace = "${kubernetes_namespace.grafana.metadata.0.name}"
   }
 
   data {
@@ -51,7 +50,7 @@ data "template_file" "grafana_values" {
     grafana_secret_name      = "${local.grafana_secret_name}"
     grafana_admin_user       = "${var.grafana_admin_user}"
     grafana_admin_pass       = "${var.grafana_admin_pass}"
-    prometheus_k8s_namespace = "${local.prometheus_k8s_namespace}"
+    prometheus_k8s_namespace = "${kubernetes_namespace.prometheus.metadata.0.name}"
     client_id                = "${var.grafana_oauth_client_id}"
     client_secret            = "${var.grafana_oauth_client_secret}"
     team_ids                 = "${var.grafana_oauth_team_ids}"

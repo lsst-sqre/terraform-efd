@@ -9,7 +9,7 @@ resource "kubernetes_namespace" "nginx_ingress" {
 resource "helm_release" "nginx_ingress" {
   name      = "nginx-ingress"
   chart     = "stable/nginx-ingress"
-  namespace = "${local.nginx_ingress_k8s_namespace}"
+  namespace = "${kubernetes_namespace.nginx_ingress.metadata.0.name}"
   version   = "1.0.1"
 
   keyring       = ""
@@ -21,7 +21,6 @@ resource "helm_release" "nginx_ingress" {
   ]
 
   depends_on = [
-    "kubernetes_namespace.nginx_ingress",
     "module.tiller",
   ]
 }
@@ -33,7 +32,7 @@ data "template_file" "nginx_ingress_values" {
 data "kubernetes_service" "nginx_ingress" {
   metadata {
     name      = "nginx-ingress-controller"
-    namespace = "${local.nginx_ingress_k8s_namespace}"
+    namespace = "${kubernetes_namespace.nginx_ingress.metadata.0.name}"
   }
 
   depends_on = ["helm_release.nginx_ingress"]

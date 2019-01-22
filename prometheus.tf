@@ -11,7 +11,7 @@ resource "kubernetes_namespace" "prometheus" {
 resource "helm_release" "prometheus" {
   name      = "prometheus"
   chart     = "stable/prometheus"
-  namespace = "${local.prometheus_k8s_namespace}"
+  namespace = "${kubernetes_namespace.prometheus.metadata.0.name}"
   version   = "8.1.0"
 
   keyring       = ""
@@ -23,7 +23,6 @@ resource "helm_release" "prometheus" {
   ]
 
   depends_on = [
-    "kubernetes_namespace.prometheus",
     "kubernetes_secret.prometheus_tls",
     "module.tiller",
     "helm_release.nginx_ingress",
@@ -41,7 +40,7 @@ data "template_file" "prometheus_values" {
 resource "kubernetes_secret" "prometheus_tls" {
   metadata {
     name      = "prometheus-server-tls"
-    namespace = "${local.prometheus_k8s_namespace}"
+    namespace = "${kubernetes_namespace.prometheus.metadata.0.name}"
   }
 
   data {
