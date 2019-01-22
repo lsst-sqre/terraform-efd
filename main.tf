@@ -11,7 +11,8 @@ provider "null" {
 }
 
 module "gke" {
-  source             = "git::https://github.com/lsst-sqre/terraform-gke-std.git//?ref=master"
+  source = "git::https://github.com/lsst-sqre/terraform-gke-std.git//?ref=master"
+
   name               = "${local.gke_cluster_name}"
   google_project     = "${var.google_project}"
   gke_version        = "latest"
@@ -44,7 +45,8 @@ provider "kubernetes" {
 }
 
 module "tiller" {
-  source          = "git::https://github.com/lsst-sqre/terraform-tinfoil-tiller.git//?ref=master"
+  source = "git::https://github.com/lsst-sqre/terraform-tinfoil-tiller.git//?ref=master"
+
   namespace       = "kube-system"
   service_account = "tiller"
   tiller_image    = "gcr.io/kubernetes-helm/tiller:v2.11.0"
