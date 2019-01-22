@@ -15,9 +15,9 @@ module "gke" {
 
   name               = "${local.gke_cluster_name}"
   google_project     = "${var.google_project}"
-  gke_version        = "latest"
-  initial_node_count = 3
-  machine_type       = "n1-standard-2"
+  gke_version        = "${var.gke_version}"
+  initial_node_count = "${var.initial_node_count}"
+  machine_type       = "${var.machine_type}"
 }
 
 # haxx...
