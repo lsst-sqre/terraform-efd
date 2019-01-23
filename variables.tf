@@ -65,7 +65,7 @@ variable "gke_version" {
 
 variable "machine_type" {
   description = "machine type of default gke pool nodes"
-  default     = "n1-standard-1"
+  default     = "n1-standard-2"
 }
 
 locals {
