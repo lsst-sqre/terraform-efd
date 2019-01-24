@@ -47,3 +47,13 @@ resource "aws_route53_record" "prometheus" {
   ttl     = "300"
   records = ["${local.nginx_ingress_ip}"]
 }
+
+resource "aws_route53_record" "influxdb" {
+  count   = "${var.dns_enable ? 1 : 0}"
+  zone_id = "${var.aws_zone_id}"
+
+  name    = "${local.influxdb_fqdn}"
+  type    = "A"
+  ttl     = "300"
+  records = ["${local.nginx_ingress_ip}"]
+}

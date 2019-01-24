@@ -78,7 +78,17 @@ locals {
   prometheus_k8s_namespace    = "prometheus"
   kafka_k8s_namespace         = "kafka"
   grafana_k8s_namespace       = "grafana"
+  influxdb_k8s_namespace       = "influxdb"
   nginx_ingress_k8s_namespace = "nginx-ingress"
   tls_crt                     = "${file(var.tls_crt_path)}"
   tls_key                     = "${file(var.tls_key_path)}"
+}
+
+variable "influxdb_admin_user" {
+  description = "influxdb admin account name."
+  default     = "admin"
+}
+
+variable "influxdb_admin_pass" {
+  description = "influxdb admin account passphrase."
 }
