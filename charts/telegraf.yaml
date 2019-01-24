@@ -21,9 +21,9 @@ daemonset:
   ## Exposed telegraf configuration
   ## ref: https://docs.influxdata.com/telegraf/v1.1/administration/configuration/
   config:
-##    global_tags:
-##      dc: "us-east-1"
-##      user: "$USER"
+##  global_tags:
+##    dc: "us-east-1"
+##    user: "$USER"
     agent:
       interval: "10s"
       round_interval: true
@@ -40,7 +40,7 @@ daemonset:
       omit_hostname: false
     outputs:
       influxdb:
-        urls: [ "${influxdb_url}" ]
+        urls: ["${influxdb_url}"]
         database: "telegraf"
 ##        retention_policy: ""
 ##        write_consistency: "any"
@@ -171,7 +171,7 @@ single:
       omit_hostname: false
     outputs:
       influxdb:
-        urls: [ "${influxdb_url}" ]
+        urls: ["${influxdb_url}"]
         database: "telegraf"
 ##        retention_policy: ""
 ##        write_consistency: "any"

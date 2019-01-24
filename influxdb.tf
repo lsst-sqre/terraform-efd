@@ -46,9 +46,9 @@ data "template_file" "influxdb_values" {
   template = "${file("${path.module}/charts/influxdb.yaml")}"
 
   vars {
-    influxdb_fqdn             = "${local.influxdb_fqdn}"
-    influxdb_secret_name      = "${local.influxdb_secret_name}"
-    influxdb_admin_user       = "${var.influxdb_admin_user}"
-    influxdb_admin_pass       = "${var.influxdb_admin_pass}"
+    influxdb_fqdn        = "${local.influxdb_fqdn}"
+    influxdb_secret_name = "${local.influxdb_secret_name}"
+    influxdb_admin_user  = "${var.influxdb_admin_user}"
+    influxdb_admin_pass  = "${var.influxdb_admin_pass}"
   }
 }

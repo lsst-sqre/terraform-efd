@@ -33,6 +33,6 @@ data "template_file" "telegraf_values" {
   template = "${file("${path.module}/charts/telegraf.yaml")}"
 
   vars {
-    influxdb_url             = "${local.influxdb_url}"
+    influxdb_url = "${local.influxdb_url}"
   }
 }
