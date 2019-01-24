@@ -79,6 +79,7 @@ locals {
   kafka_k8s_namespace         = "kafka"
   grafana_k8s_namespace       = "grafana"
   influxdb_k8s_namespace       = "influxdb"
+  telegraf_k8s_namespace       = "telegraf"
   nginx_ingress_k8s_namespace = "nginx-ingress"
   tls_crt                     = "${file(var.tls_crt_path)}"
   tls_key                     = "${file(var.tls_key_path)}"
