@@ -21,3 +21,7 @@ output "grafana_fqdn" {
 output "prometheus_fqdn" {
   value = "${local.prometheus_fqdn}"
 }
+
+output "influxdb_fqdn" {
+  value = "${local.influxdb_fqdn}"
+}
