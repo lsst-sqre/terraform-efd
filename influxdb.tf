@@ -52,3 +52,20 @@ data "template_file" "influxdb_values" {
     influxdb_admin_pass  = "${var.influxdb_admin_pass}"
   }
 }
+
+resource "influxdb_database" "efd" {
+  name = "efd"
+
+  retention_policies = [
+    {
+      name     = "year"
+      duration = "52w"
+      default  = "true"
+    },
+  ]
+
+  depends_on = [
+    "helm_release.nginx_ingress",
+    "helm_release.influxdb",
+  ]
+}
