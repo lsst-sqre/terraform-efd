@@ -65,7 +65,6 @@ resource "influxdb_database" "efd" {
   ]
 
   depends_on = [
-    "helm_release.nginx_ingress",
     "helm_release.influxdb",
   ]
 }
