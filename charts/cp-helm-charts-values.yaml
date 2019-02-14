@@ -118,7 +118,7 @@ cp-kafka-rest:
 cp-kafka-connect:
   enabled: true
   image: lsstsqre/cp-kafka-connect
-  imageTag: tickets-DM-16846
+  imageTag: latest
   ## Optionally specify an array of imagePullSecrets. Secrets must be manually created in the namespace.
   ## https://kubernetes.io/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod
   imagePullSecrets:
