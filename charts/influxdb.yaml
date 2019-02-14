@@ -45,7 +45,7 @@ persistence:
 ## Defaults indicated below
 ##
 setDefaultUser:
-  enabled: false
+  enabled: true
 
   ## Image of the container used for job
   ## Default: appropriate/curl:latest

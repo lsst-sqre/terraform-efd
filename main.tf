@@ -76,3 +76,9 @@ provider "grafana" {
   url  = "https://${local.grafana_fqdn}"
   auth = "${var.grafana_admin_user}:${var.grafana_admin_pass}"
 }
+
+provider "influxdb" {
+  url      = "https://${local.dns_prefix}influxdb-${var.deploy_name}.${var.domain_name}"
+  username = "${var.influxdb_admin_user}"
+  password = "${var.influxdb_admin_pass}"
+}
