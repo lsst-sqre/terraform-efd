@@ -14,6 +14,7 @@ resource "helm_release" "confluent" {
   repository = "${helm_repository.confluentinc.metadata.0.name}"
   chart      = "cp-helm-charts"
   namespace  = "${kubernetes_namespace.kafka.metadata.0.name}"
+  version    = "0.1.1"
 
   keyring       = ""
   force_update  = true
