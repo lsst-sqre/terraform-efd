@@ -75,14 +75,15 @@ locals {
   # Name of google cloud container cluster to deploy into
   gke_cluster_name = "${var.deploy_name}-${var.env_name}"
 
-  prometheus_k8s_namespace    = "prometheus"
-  kafka_k8s_namespace         = "kafka"
-  grafana_k8s_namespace       = "grafana"
-  influxdb_k8s_namespace      = "influxdb"
-  telegraf_k8s_namespace      = "telegraf"
-  nginx_ingress_k8s_namespace = "nginx-ingress"
-  tls_crt                     = "${file(var.tls_crt_path)}"
-  tls_key                     = "${file(var.tls_key_path)}"
+  prometheus_k8s_namespace     = "prometheus"
+  kafka_k8s_namespace          = "kafka"
+  grafana_k8s_namespace        = "grafana"
+  influxdb_k8s_namespace       = "influxdb"
+  telegraf_k8s_namespace       = "telegraf"
+  nginx_ingress_k8s_namespace  = "nginx-ingress"
+  kafka_efd_apps_k8s_namespace = "kafka-efd-apps"
+  tls_crt                      = "${file(var.tls_crt_path)}"
+  tls_key                      = "${file(var.tls_key_path)}"
 }
 
 variable "influxdb_admin_user" {
@@ -92,4 +93,12 @@ variable "influxdb_admin_user" {
 
 variable "influxdb_admin_pass" {
   description = "influxdb admin account passphrase."
+}
+
+variable "github_user" {
+  description = "GitHub username for authenticating to the GitHub API."
+}
+
+variable "github_token" {
+  description = "GitHub personal access token for authenticating to the GitHub API"
 }
