@@ -30,6 +30,8 @@ terragrunt = {
 | dns\_enable | create route53 dns records. | string | `"false"` | no |
 | domain\_name | DNS domain name to use when creating route53 records. | string | n/a | yes |
 | env\_name | Name of deployment environment. | string | n/a | yes |
+| github\_token | GitHub personal access token for authenticating to the GitHub API | string | n/a | yes |
+| github\_user | GitHub username for authenticating to the GitHub API. | string | n/a | yes |
 | gke\_version | gke master/node version | string | `"latest"` | no |
 | google\_project | google cloud project ID | string | n/a | yes |
 | grafana\_admin\_pass | grafana admin account passphrase. | string | n/a | yes |
