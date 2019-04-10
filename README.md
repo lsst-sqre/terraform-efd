@@ -26,6 +26,7 @@ terragrunt = {
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
 | aws\_zone\_id | route53 Hosted Zone ID to manage DNS records in. | string | n/a | yes |
+| brokers\_disk\_size | Disk size for the cp-kafka brokers. | string | `"15Gi"` | no |
 | deploy\_name | Name of deployment. | string | `"efd-kafka"` | no |
 | dns\_enable | create route53 dns records. | string | `"false"` | no |
 | domain\_name | DNS domain name to use when creating route53 records. | string | n/a | yes |
@@ -45,6 +46,8 @@ terragrunt = {
 | machine\_type | machine type of default gke pool nodes | string | `"n1-standard-2"` | no |
 | tls\_crt\_path | wildcard tls certificate. | string | n/a | yes |
 | tls\_key\_path | wildcard tls private key. | string | n/a | yes |
+| zookeeper\_data\_dir\_size | Size for Data dir, where ZooKeeper will store the in-memory database snapshots. | string | `"15Gi"` | no |
+| zookeeper\_log\_dir\_size | Size for data log dir, which is a dedicated log device to be used, and helps avoid competition between logging and snaphots. | string | `"15Gi"` | no |
 
 ## Outputs
 

@@ -33,11 +33,11 @@ data "template_file" "cp-helm-charts-values" {
   template = "${file("${path.module}/charts/cp-helm-charts-values.yaml")}"
 
   vars {
-    dns_prefix  = "${local.dns_prefix}"
-    domain_name = "${var.domain_name}"
-    brokers_disk_size = "${var.brokers_disk_size}"
+    dns_prefix              = "${local.dns_prefix}"
+    domain_name             = "${var.domain_name}"
+    brokers_disk_size       = "${var.brokers_disk_size}"
     zookeeper_data_dir_size = "${var.zookeeper_data_dir_size}"
-    zookeeper_log_dir_size = "${var.zookeeper_log_dir_size}"
+    zookeeper_log_dir_size  = "${var.zookeeper_log_dir_size}"
   }
 }
 
