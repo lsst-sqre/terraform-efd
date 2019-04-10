@@ -21,8 +21,7 @@ resource "helm_release" "confluent" {
   recreate_pods = true
 
   values = [
-    "${file("${path.module}/charts/cp-helm-charts-values.yaml")}",
-    "${data.template_file.confluent_values.rendered}",
+    "${data.template_file.cp-helm-charts-values.rendered}",
   ]
 
   depends_on = [
@@ -30,18 +29,15 @@ resource "helm_release" "confluent" {
   ]
 }
 
-data "template_file" "confluent_values" {
-  template = <<EOF
----
-cp-kafka:
-  configurationOverrides:
-    "advertised.listeners": |-
-      EXTERNAL://$${dns_prefix}efd-kafka$$$${KAFKA_BROKER_ID}.$${domain_name}:9094
-EOF
+data "template_file" "cp-helm-charts-values" {
+  template = "${file("${path.module}/charts/cp-helm-charts-values.yaml")}"
 
   vars {
-    dns_prefix  = "${local.dns_prefix}"
-    domain_name = "${var.domain_name}"
+    dns_prefix              = "${local.dns_prefix}"
+    domain_name             = "${var.domain_name}"
+    brokers_disk_size       = "${var.brokers_disk_size}"
+    zookeeper_data_dir_size = "${var.zookeeper_data_dir_size}"
+    zookeeper_log_dir_size  = "${var.zookeeper_log_dir_size}"
   }
 }
 

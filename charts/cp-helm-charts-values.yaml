@@ -18,12 +18,12 @@ cp-zookeeper:
     ## production servers this number should likely be much larger.
     ##
     ## Size for Data dir, where ZooKeeper will store the in-memory database snapshots.
-    dataDirSize: 15Gi
-    # dataDirStorageClass: ""
+    dataDirSize: ${zookeeper_data_dir_size}
+    dataDirStorageClass: "pd-ssd"
 
     ## Size for data log dir, which is a dedicated log device to be used, and helps avoid competition between logging and snaphots.
-    dataLogDirSize: 15Gi
-    # dataLogDirStorageClass: ""
+    dataLogDirSize: ${zookeeper_log_dir_size}
+    dataLogDirStorageClass: "pd-ssd"
   resources: {}
   ## If you do want to specify resources, uncomment the following lines, adjust them as necessary,
   ## and remove the curly braces after 'resources:'
@@ -49,8 +49,8 @@ cp-kafka:
   heapOptions: "-Xms512M -Xmx512M"
   persistence:
     enabled: true
-    # storageClass: ""
-    size: 15Gi
+    storageClass: "pd-ssd"
+    size: ${brokers_disk_size}
     disksPerBroker: 1
   resources: {}
   ## If you do want to specify resources, uncomment the following lines, adjust them as necessary,
@@ -67,6 +67,9 @@ cp-kafka:
   configurationOverrides:
     offsets.retention.minutes: 1440
     log.retention.hours: 24
+    advertised.listeners: |-
+        EXTERNAL://${dns_prefix}efd-kafka$${KAFKA_BROKER_ID}.${domain_name}:9094
+
 
 ## ------------------------------------------------------
 ## Schema Registry
@@ -137,6 +140,7 @@ cp-kafka-connect:
 
   configurationOverrides:
     "plugin.path": "/usr/share/java,/etc/landoop/jars/lib"
+
 
 ## ------------------------------------------------------
 ## KSQL Server
