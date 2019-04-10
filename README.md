@@ -42,6 +42,7 @@ terragrunt = {
 | grafana\_oauth\_team\_ids | github team id (integer value treated as string) | string | n/a | yes |
 | influxdb\_admin\_pass | influxdb admin account passphrase. | string | n/a | yes |
 | influxdb\_admin\_user | influxdb admin account name. | string | `"admin"` | no |
+| influxdb\_telegraf\_pass | InfluxDB password for the telegraf user. | string | n/a | yes |
 | initial\_node\_count | number of gke nodes to start | string | `"3"` | no |
 | machine\_type | machine type of default gke pool nodes | string | `"n1-standard-2"` | no |
 | tls\_crt\_path | wildcard tls certificate. | string | n/a | yes |

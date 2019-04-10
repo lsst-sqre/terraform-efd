@@ -45,8 +45,8 @@ daemonset:
 ##        retention_policy: ""
 ##        write_consistency: "any"
 ##        timeout: "5s"
-##        username: "telegraf"
-##        password: "metricsmetricsmetricsmetrics"
+        username: "telegraf"
+        password: "${influxdb_telegraf_pass}"
 ##        user_agent: "telegraf"
 ##        udp_payload: 512
 ##        ssl_ca: "/etc/telegraf/ca.pem"
@@ -176,8 +176,8 @@ single:
 ##        retention_policy: ""
 ##        write_consistency: "any"
 ##        timeout: "5s"
-##        username: "telegraf"
-##        password: "metricsmetricsmetricsmetrics"
+        username: "telegraf"
+        password: "${influxdb_telegraf_pass}"
 ##        user_agent: "telegraf"
 ##        udp_payload: 512
 ##        ssl_ca: "/etc/telegraf/ca.pem"

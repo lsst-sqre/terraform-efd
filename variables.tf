@@ -117,3 +117,7 @@ variable "zookeeper_log_dir_size" {
   description = "Size for data log dir, which is a dedicated log device to be used, and helps avoid competition between logging and snaphots."
   default     = "15Gi"
 }
+
+variable "influxdb_telegraf_pass" {
+  description = "InfluxDB password for the telegraf user."
+}

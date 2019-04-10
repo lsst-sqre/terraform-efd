@@ -68,3 +68,33 @@ resource "influxdb_database" "efd" {
     "helm_release.influxdb",
   ]
 }
+
+resource "influxdb_database" "telegraf" {
+  name = "telegraf"
+
+  retention_policies = [
+    {
+      name     = "month"
+      duration = "4w"
+      default  = "true"
+    },
+  ]
+
+  depends_on = [
+    "helm_release.influxdb",
+  ]
+}
+
+resource "influxdb_user" "telegraf" {
+  name     = "telegraf"
+  password = "${var.influxdb_telegraf_pass}"
+
+  grant {
+    database  = "${influxdb_database.telegraf.name}"
+    privilege = "ALL"
+  }
+
+  depends_on = [
+    "helm_release.influxdb",
+  ]
+}
