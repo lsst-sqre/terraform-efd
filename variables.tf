@@ -102,3 +102,18 @@ variable "github_user" {
 variable "github_token" {
   description = "GitHub personal access token for authenticating to the GitHub API"
 }
+
+variable "brokers_disk_size" {
+  description = "Disk size for the cp-kafka brokers."
+  default     = "15Gi"
+}
+
+variable "zookeeper_data_dir_size" {
+  description = "Size for Data dir, where ZooKeeper will store the in-memory database snapshots."
+  default     = "15Gi"
+}
+
+variable "zookeeper_log_dir_size" {
+  description = "Size for data log dir, which is a dedicated log device to be used, and helps avoid competition between logging and snaphots."
+  default     = "15Gi"
+}
