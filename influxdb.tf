@@ -15,7 +15,6 @@ resource "helm_release" "influxdb" {
   namespace = "${kubernetes_namespace.influxdb.metadata.0.name}"
   version   = "1.1.1"
 
-  keyring       = ""
   force_update  = true
   recreate_pods = true
 
