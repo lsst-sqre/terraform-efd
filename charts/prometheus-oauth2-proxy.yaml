@@ -1,0 +1,27 @@
+---
+ingress:
+  enabled: true
+  hosts:
+    - "${prometheus_fqdn}"
+  tls:
+    - secretName: "${prometheus_secret_name}"
+      hosts:
+        - "${prometheus_fqdn}"
+config:
+  clientID: "${prometheus_oauth_client_id}"
+  clientSecret: "${prometheus_oauth_client_secret}"
+  configFile: |
+    upstreams = [ "http://prometheus-operator-prometheus:9090" ]
+    provider = "github"
+    github_org = "${prometheus_oauth_github_org}"
+    email_domains = [ "*" ]
+affinity:
+  nodeAffinity:
+    preferredDuringSchedulingIgnoredDuringExecution:
+      - weight: 1
+        preference:
+          matchExpressions:
+            - key: nodegroup
+              operator: In
+              values:
+                - admin

@@ -70,13 +70,6 @@ provider "aws" {
   region  = "us-east-1"
 }
 
-provider "grafana" {
-  version = "~> 1.3"
-
-  url  = "https://${local.grafana_fqdn}"
-  auth = "${var.grafana_admin_user}:${var.grafana_admin_pass}"
-}
-
 provider "influxdb" {
   url      = "https://${local.dns_prefix}influxdb-${var.deploy_name}.${var.domain_name}"
   username = "${var.influxdb_admin_user}"
