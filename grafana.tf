@@ -81,24 +81,3 @@ data "template_file" "confluent_grafana_dashboard" {
     DS_PROMETHEUS = "Prometheus"
   }
 }
-
-resource "grafana_dashboard" "nginx" {
-  count = "${var.dns_enable ? 1 : 0}"
-
-  config_json = "${data.template_file.nginx_grafana_dashboard.rendered}"
-
-  depends_on = [
-    "helm_release.grafana",
-    "aws_route53_record.grafana",
-  ]
-}
-
-# nginx dashboard copied from:
-# https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/grafana/dashboards/nginx.yaml
-data "template_file" "nginx_grafana_dashboard" {
-  template = "${file("${path.module}/grafana-dashboards/nginx.yaml")}"
-
-  vars {
-    DS_PROMETHEUS = "Prometheus"
-  }
-}

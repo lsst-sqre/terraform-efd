@@ -6,9 +6,29 @@ controller:
     enabled: true
   metrics:
     enabled: true
-    service:
-      annotations:
-        prometheus.io/scrape: true
-        prometheus.io/port: "10254"
+    serviceMonitor:
+      enabled: true
+      namespace: monitoring
   extraArgs:
     v: 2
+  affinity:
+    nodeAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+        - weight: 1
+          preference:
+            matchExpressions:
+              - key: nodegroup
+                operator: In
+                values:
+                  - admin
+defaultBackend:
+  affinity:
+    nodeAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+        - weight: 1
+          preference:
+            matchExpressions:
+              - key: nodegroup
+                operator: In
+                values:
+                  - admin
