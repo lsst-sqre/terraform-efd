@@ -8,7 +8,7 @@ controller:
     enabled: true
     serviceMonitor:
       enabled: true
-      namespace: monitoring
+      namespace: "${prometheus_k8s_namespace}"
   extraArgs:
     v: 2
   affinity:

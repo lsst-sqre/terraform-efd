@@ -75,7 +75,7 @@ locals {
   # Name of google cloud container cluster to deploy into
   gke_cluster_name = "${var.deploy_name}-${var.env_name}"
 
-  prometheus_k8s_namespace     = "prometheus"
+  prometheus_k8s_namespace     = "monitoring"
   kafka_k8s_namespace          = "kafka"
   grafana_k8s_namespace        = "grafana"
   influxdb_k8s_namespace       = "influxdb"

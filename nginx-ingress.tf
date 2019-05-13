@@ -32,6 +32,10 @@ resource "helm_release" "nginx_ingress" {
 
 data "template_file" "nginx_ingress_values" {
   template = "${file("${path.module}/charts/nginx-ingress.yaml")}"
+
+  vars {
+    prometheus_k8s_namespace = "${local.prometheus_k8s_namespace}"
+  }
 }
 
 data "kubernetes_service" "nginx_ingress" {
