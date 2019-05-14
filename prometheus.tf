@@ -34,6 +34,7 @@ data "template_file" "prometheus_values" {
 
   vars {
     prometheus_fqdn = "${local.prometheus_fqdn}"
+    storage_class   = "${var.storage_class}"
   }
 }
 

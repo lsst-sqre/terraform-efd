@@ -38,6 +38,7 @@ data "template_file" "cp-helm-charts-values" {
     brokers_disk_size       = "${var.brokers_disk_size}"
     zookeeper_data_dir_size = "${var.zookeeper_data_dir_size}"
     zookeeper_log_dir_size  = "${var.zookeeper_log_dir_size}"
+    storage_class           = "${var.storage_class}"
   }
 }
 

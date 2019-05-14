@@ -91,6 +91,11 @@ variable "github_token" {
   description = "GitHub personal access token for authenticating to the GitHub API"
 }
 
+variable "influxdb_disk_size" {
+  description = "Disk size for InfluxDB."
+  default     = "128Gi"
+}
+
 variable "brokers_disk_size" {
   description = "Disk size for the cp-kafka brokers."
   default     = "15Gi"
@@ -108,4 +113,9 @@ variable "zookeeper_log_dir_size" {
 
 variable "influxdb_telegraf_pass" {
   description = "InfluxDB password for the telegraf user."
+}
+
+variable "storage_class" {
+  description = "Storage class to be used for all persistent disks. For a deployment on k3s use 'local-path'."
+  default     = "pd-ssd"
 }

@@ -8,7 +8,7 @@ image:
 ## Configure the telegraf daemonset here.
 ## Resource limits and outputs can be set separately
 daemonset:
-  enabled: true
+  enabled: false
   ## Configure resource requests and limits
   ## ref: http://kubernetes.io/docs/user-guide/compute-resources/
   resources:

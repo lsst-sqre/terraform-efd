@@ -4,6 +4,7 @@
 # Add a persistent volume to maintain dashboards between restarts
 persistence:
   enabled: true
+  storageClassName: ${storage_class}
   size: 1Gi
   accessModes:
     - ReadWriteOnce

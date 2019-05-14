@@ -41,8 +41,10 @@ terragrunt = {
 | grafana\_oauth\_team\_ids | github team id (integer value treated as string) | string | n/a | yes |
 | influxdb\_admin\_pass | influxdb admin account passphrase. | string | n/a | yes |
 | influxdb\_admin\_user | influxdb admin account name. | string | `"admin"` | no |
+| influxdb\_disk\_size | Disk size for InfluxDB. | string | `"128Gi"` | no |
 | influxdb\_telegraf\_pass | InfluxDB password for the telegraf user. | string | n/a | yes |
 | initial\_node\_count | number of gke nodes to start | string | `"3"` | no |
+| storage\_class | Storage class to be used for all persistent disks. For a deployment on k3s use 'local-path'. | string | `"pd-ssd"` | no |
 | tls\_crt\_path | wildcard tls certificate. | string | n/a | yes |
 | tls\_key\_path | wildcard tls private key. | string | n/a | yes |
 | zookeeper\_data\_dir\_size | Size for Data dir, where ZooKeeper will store the in-memory database snapshots. | string | `"15Gi"` | no |

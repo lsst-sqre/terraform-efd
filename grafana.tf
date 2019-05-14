@@ -54,6 +54,7 @@ data "template_file" "grafana_values" {
     client_id                = "${var.grafana_oauth_client_id}"
     client_secret            = "${var.grafana_oauth_client_secret}"
     team_ids                 = "${var.grafana_oauth_team_ids}"
+    storage_class            = "${var.storage_class}"
   }
 }
 
