@@ -4,6 +4,9 @@ prometheus:
     # select all serviceMonitors
     serviceMonitorSelectorNilUsesHelmValues: false
     serviceMonitorSelector: {}
+    # This is necessary in order to scrape values from the cp-helm-charts,
+    # which do not yet support the prometheus-operator CRDs.  Once support has
+    # been merged, this kludge may be removed.
     # see https://github.com/coreos/kube-prometheus/pull/16#issuecomment-424318647
     additionalScrapeConfigs:
       - job_name: 'kubernetes-pods'
