@@ -16,7 +16,6 @@ resource "helm_release" "confluent" {
   namespace  = "${kubernetes_namespace.kafka.metadata.0.name}"
   version    = "0.1.1"
 
-  keyring       = ""
   force_update  = true
   recreate_pods = true
 

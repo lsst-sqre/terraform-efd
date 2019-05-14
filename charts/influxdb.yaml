@@ -1,3 +1,4 @@
+---
 ## influxdb image version
 ## ref: https://hub.docker.com/r/library/influxdb/tags/
 image:

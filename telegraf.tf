@@ -14,7 +14,6 @@ resource "helm_release" "telegraf" {
   namespace = "${kubernetes_namespace.telegraf.metadata.0.name}"
   version   = "0.3.3"
 
-  keyring       = ""
   force_update  = true
   recreate_pods = true
 

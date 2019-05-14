@@ -3,8 +3,8 @@
 set -e
 shopt -s globstar nullglob
 
-CHECK=( **/*.sh )
-IGNORE=( {environments,.bundle,.tmp}/** )
+CHECK=( **/*.json )
+IGNORE=()
 
 for c in "${!CHECK[@]}"; do
   for i in "${IGNORE[@]}"; do
@@ -20,7 +20,10 @@ for c in "${CHECK[@]}"; do
 done
 echo
 
-docker run -ti -v "$(pwd):$(pwd)" -w "$(pwd)" \
-  koalaman/shellcheck-alpine:v0.6.0 shellcheck -x "${CHECK[@]}"
+for f in "${CHECK[@]}"; do
+  docker run -ti -v "$(pwd):$(pwd)" -w "$(pwd)" \
+    pipelinecomponents/jsonlint:0.1.2 jsonlint -q "$f"
+
+done
 
 # vim: tabstop=2 shiftwidth=2 expandtab

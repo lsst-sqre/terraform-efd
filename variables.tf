@@ -75,7 +75,7 @@ locals {
   # Name of google cloud container cluster to deploy into
   gke_cluster_name = "${var.deploy_name}-${var.env_name}"
 
-  prometheus_k8s_namespace     = "prometheus"
+  prometheus_k8s_namespace     = "monitoring"
   kafka_k8s_namespace          = "kafka"
   grafana_k8s_namespace        = "grafana"
   influxdb_k8s_namespace       = "influxdb"
@@ -120,4 +120,16 @@ variable "zookeeper_log_dir_size" {
 
 variable "influxdb_telegraf_pass" {
   description = "InfluxDB password for the telegraf user."
+}
+
+variable "prometheus_oauth_github_org" {
+  description = "limit access to prometheus dashboard to members of this org"
+}
+
+variable "prometheus_oauth_client_id" {
+  description = "github oauth client id"
+}
+
+variable "prometheus_oauth_client_secret" {
+  description = "github oauth client secret"
 }

@@ -1,6 +1,5 @@
 ---
-sudo: false
-language: c
+language: minimal
 matrix:
   include:
     - env: TEST=markdownlint
@@ -27,6 +26,11 @@ matrix:
       services:
         - docker
       script: ./tests/pre-commit.sh
+
+    - env: TEST=jsonlint
+      services:
+        - docker
+      script: ./tests/jsonlint.sh
 branches:
   only:
     - master

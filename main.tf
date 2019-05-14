@@ -53,7 +53,7 @@ module "tiller" {
 }
 
 provider "helm" {
-  version = "~> 0.7.0"
+  version = "~> 0.9.1"
 
   service_account = "${module.tiller.service_account}"
   namespace       = "${module.tiller.namespace}"
@@ -68,13 +68,6 @@ provider "helm" {
 provider "aws" {
   version = "~> 1.21"
   region  = "us-east-1"
-}
-
-provider "grafana" {
-  version = "~> 1.3"
-
-  url  = "https://${local.grafana_fqdn}"
-  auth = "${var.grafana_admin_user}:${var.grafana_admin_pass}"
 }
 
 provider "influxdb" {
