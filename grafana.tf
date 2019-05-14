@@ -1,5 +1,5 @@
 # confluent dashboard copied from:
-# https://raw.githubusercontent.com/confluentinc/cp-helm-charts/700b4326352cf5220e66e6976064740b8c1976c7/grafana-dashboard/confluent-open-source-grafana-dashboard.json
+# https://raw.githubusercontent.com/confluentinc/cp-helm-charts/3d808fb200e12aff8c0bd6dde9595b6dfafa6032/grafana-dashboard/confluent-open-source-grafana-dashboard.json
 data "template_file" "confluent_grafana_dashboard" {
   template = "${file("${path.module}/grafana-dashboards/confluent-open-source-grafana-dashboard.json")}"
 
