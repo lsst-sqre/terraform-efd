@@ -1,5 +1,6 @@
-variable "google_project" {
-  description = "google cloud project ID"
+variable "config_path" {
+  description = "Path to the kube config file. Can be sourced from KUBE_CONFIG or KUBECONFIG."
+  default     = "~/.kube/config"
 }
 
 variable "env_name" {
@@ -58,22 +59,9 @@ variable "initial_node_count" {
   default     = 3
 }
 
-variable "gke_version" {
-  description = "gke master/node version"
-  default     = "latest"
-}
-
-variable "machine_type" {
-  description = "machine type of default gke pool nodes"
-  default     = "n1-standard-2"
-}
-
 locals {
   # remove "<env>-" prefix for production
   dns_prefix = "${replace("${var.env_name}-", "prod-", "")}"
-
-  # Name of google cloud container cluster to deploy into
-  gke_cluster_name = "${var.deploy_name}-${var.env_name}"
 
   prometheus_k8s_namespace     = "prometheus"
   kafka_k8s_namespace          = "kafka"
