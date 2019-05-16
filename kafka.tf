@@ -5,11 +5,15 @@ resource "kubernetes_namespace" "kafka" {
 }
 
 resource "helm_repository" "confluentinc" {
+  provider = "helm.efd_kafka"
+
   name = "confluentinc"
   url  = "https://raw.githubusercontent.com/lsst-sqre/cp-helm-charts/master"
 }
 
 resource "helm_release" "confluent" {
+  provider = "helm.efd_kafka"
+
   name       = "confluent"
   repository = "${helm_repository.confluentinc.metadata.0.name}"
   chart      = "cp-helm-charts"

@@ -10,6 +10,8 @@ resource "kubernetes_namespace" "prometheus" {
 }
 
 resource "helm_release" "prometheus_operator" {
+  provider = "helm.efd_kafka"
+
   name      = "prometheus-operator"
   chart     = "stable/prometheus-operator"
   namespace = "${kubernetes_namespace.prometheus.metadata.0.name}"
