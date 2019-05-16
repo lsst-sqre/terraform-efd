@@ -1,14 +1,10 @@
-terraform efd-kafka "top level" deployment
+terraform efd-kafka "app" deployment
 ===
 
 [![Build Status](https://travis-ci.org/lsst-sqre/terraform-efd-kafka.png)](https://travis-ci.org/lsst-sqre/terraform-efd-kafka)
 
 Usage
 ---
-
-This package is intended to be used as a "top level" deployment, rather than as
-a general purpose module, and thus declares provider configuration that that
-may be inappropriate in a module.
 
 `terragrunt` configuration example:
 
