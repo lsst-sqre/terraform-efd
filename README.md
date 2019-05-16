@@ -33,8 +33,6 @@ terragrunt = {
 | env\_name | Name of deployment environment. | string | n/a | yes |
 | github\_token | GitHub personal access token for authenticating to the GitHub API | string | n/a | yes |
 | github\_user | GitHub username for authenticating to the GitHub API. | string | n/a | yes |
-| gke\_version | gke master/node version | string | `"latest"` | no |
-| google\_project | google cloud project ID | string | n/a | yes |
 | grafana\_admin\_pass | grafana admin account passphrase. | string | n/a | yes |
 | grafana\_admin\_user | grafana admin account name. | string | `"admin"` | no |
 | grafana\_oauth\_client\_id | github oauth Client ID for grafana | string | n/a | yes |
@@ -43,8 +41,7 @@ terragrunt = {
 | influxdb\_admin\_pass | influxdb admin account passphrase. | string | n/a | yes |
 | influxdb\_admin\_user | influxdb admin account name. | string | `"admin"` | no |
 | influxdb\_telegraf\_pass | InfluxDB password for the telegraf user. | string | n/a | yes |
-| initial\_node\_count | number of gke nodes to start | string | `"3"` | no |
-| machine\_type | machine type of default gke pool nodes | string | `"n1-standard-2"` | no |
+| kubeconfig\_filename | kubeconfig file to configure kubernetes/helm providers | string | n/a | yes |
 | prometheus\_oauth\_client\_id | github oauth client id | string | n/a | yes |
 | prometheus\_oauth\_client\_secret | github oauth client secret | string | n/a | yes |
 | prometheus\_oauth\_github\_org | limit access to prometheus dashboard to members of this org | string | n/a | yes |

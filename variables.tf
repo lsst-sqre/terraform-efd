@@ -1,7 +1,3 @@
-variable "google_project" {
-  description = "google cloud project ID"
-}
-
 variable "env_name" {
   description = "Name of deployment environment."
 }
@@ -53,27 +49,9 @@ variable "dns_enable" {
   default     = false
 }
 
-variable "initial_node_count" {
-  description = "number of gke nodes to start"
-  default     = 3
-}
-
-variable "gke_version" {
-  description = "gke master/node version"
-  default     = "latest"
-}
-
-variable "machine_type" {
-  description = "machine type of default gke pool nodes"
-  default     = "n1-standard-2"
-}
-
 locals {
   # remove "<env>-" prefix for production
   dns_prefix = "${replace("${var.env_name}-", "prod-", "")}"
-
-  # Name of google cloud container cluster to deploy into
-  gke_cluster_name = "${var.deploy_name}-${var.env_name}"
 
   prometheus_k8s_namespace     = "monitoring"
   kafka_k8s_namespace          = "kafka"
@@ -132,4 +110,8 @@ variable "prometheus_oauth_client_id" {
 
 variable "prometheus_oauth_client_secret" {
   description = "github oauth client secret"
+}
+
+variable "kubeconfig_filename" {
+  description = "kubeconfig file to configure kubernetes/helm providers"
 }
