@@ -60,6 +60,8 @@ resource "kubernetes_secret" "prometheus_tls" {
 }
 
 resource "helm_release" "prometheus_oauth2_proxy" {
+  provider = "helm.efd"
+
   name      = "prometheus-oauth2-proxy"
   chart     = "stable/oauth2-proxy"
   namespace = "${kubernetes_namespace.prometheus.metadata.0.name}"
