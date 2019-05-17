@@ -8,6 +8,18 @@ Deploys an `efd` instance onto a k8s cluster.
 Usage
 ---
 
+### Oauth2 configuration
+
+The `prometheus` and `grafana` dashboards require `github` oauth2 credentials
+for user authentication.
+
+The required callback URLs are:
+
+* `grafna`: `https://[<env_name>-]grafana-<deploy_name>.<domain_name>/login/github`
+* `prometheus`: `https://[<env_name>-]prometheus-<deploy_name>.<domain_name>/oauth2`
+
+### Example
+
 ```terraform
 provider "aws" {
   version = "~> 2.10.0"
