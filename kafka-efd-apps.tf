@@ -5,6 +5,8 @@ resource "kubernetes_namespace" "kafka-efd-apps" {
 }
 
 resource "helm_release" "kafka-efd-apps" {
+  provider = "helm.efd"
+
   name      = "kafka-efd-apps"
   chart     = "lsstsqre/kafka-efd-apps"
   namespace = "${kubernetes_namespace.kafka-efd-apps.metadata.0.name}"

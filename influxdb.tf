@@ -10,6 +10,8 @@ resource "kubernetes_namespace" "influxdb" {
 }
 
 resource "helm_release" "influxdb" {
+  provider = "helm.efd"
+
   name      = "influxdb"
   chart     = "stable/influxdb"
   namespace = "${kubernetes_namespace.influxdb.metadata.0.name}"

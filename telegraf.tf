@@ -9,6 +9,8 @@ resource "kubernetes_namespace" "telegraf" {
 }
 
 resource "helm_release" "telegraf" {
+  provider = "helm.efd"
+
   name      = "telegraf"
   chart     = "stable/telegraf"
   namespace = "${kubernetes_namespace.telegraf.metadata.0.name}"
