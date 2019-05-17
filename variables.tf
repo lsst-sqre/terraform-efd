@@ -4,7 +4,7 @@ variable "env_name" {
 
 variable "deploy_name" {
   description = "Name of deployment."
-  default     = "efd-kafka"
+  default     = "efd"
 }
 
 variable "aws_zone_id" {

@@ -10,7 +10,7 @@ resource "kubernetes_namespace" "nginx_ingress" {
 }
 
 resource "helm_release" "nginx_ingress" {
-  provider = "helm.efd_kafka"
+  provider = "helm.efd"
 
   name      = "nginx-ingress"
   chart     = "stable/nginx-ingress"

@@ -10,7 +10,7 @@ resource "kubernetes_namespace" "influxdb" {
 }
 
 resource "helm_release" "influxdb" {
-  provider = "helm.efd_kafka"
+  provider = "helm.efd"
 
   name      = "influxdb"
   chart     = "stable/influxdb"

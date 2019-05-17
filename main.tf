@@ -7,7 +7,7 @@ module "tiller" {
 }
 
 provider "helm" {
-  alias   = "efd_kafka"
+  alias   = "efd"
   version = "~> 0.9.1"
 
   service_account = "${module.tiller.service_account}"

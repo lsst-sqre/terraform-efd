@@ -68,7 +68,7 @@ cp-kafka:
     offsets.retention.minutes: 1440
     log.retention.hours: 24
     advertised.listeners: |-
-        EXTERNAL://${dns_prefix}efd-kafka$${KAFKA_BROKER_ID}.${domain_name}:9094
+        EXTERNAL://${dns_prefix}${deploy_name}$${KAFKA_BROKER_ID}.${domain_name}:9094
 
 
 ## ------------------------------------------------------

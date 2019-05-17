@@ -9,7 +9,7 @@ resource "kubernetes_namespace" "telegraf" {
 }
 
 resource "helm_release" "telegraf" {
-  provider = "helm.efd_kafka"
+  provider = "helm.efd"
 
   name      = "telegraf"
   chart     = "stable/telegraf"
