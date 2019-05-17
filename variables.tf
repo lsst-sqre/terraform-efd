@@ -49,6 +49,11 @@ variable "dns_enable" {
   default     = false
 }
 
+variable "dns_overwrite" {
+  description = "overwrite pre-existing DNS records."
+  default     = false
+}
+
 locals {
   # remove "<env>-" prefix for production
   dns_prefix = "${replace("${var.env_name}-", "prod-", "")}"

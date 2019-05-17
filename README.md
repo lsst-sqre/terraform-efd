@@ -60,6 +60,7 @@ module "efd" {
 | brokers\_disk\_size | Disk size for the cp-kafka brokers. | string | `"15Gi"` | no |
 | deploy\_name | Name of deployment. | string | `"efd"` | no |
 | dns\_enable | create route53 dns records. | string | `"false"` | no |
+| dns\_overwrite | overwrite pre-existing DNS records. | string | `"false"` | no |
 | domain\_name | DNS domain name to use when creating route53 records. | string | n/a | yes |
 | env\_name | Name of deployment environment. | string | n/a | yes |
 | github\_token | GitHub personal access token for authenticating to the GitHub API | string | n/a | yes |
