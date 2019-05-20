@@ -78,6 +78,11 @@ variable "influxdb_admin_pass" {
   description = "influxdb admin account passphrase."
 }
 
+variable "influxdb_disk_size" {
+  description = "Disk size for InfluxDB."
+  default     = "128Gi"
+}
+
 variable "github_user" {
   description = "GitHub username for authenticating to the GitHub API."
 }

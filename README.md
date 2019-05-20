@@ -84,6 +84,7 @@ module "efd" {
 | grafana\_oauth\_team\_ids | github team id (integer value treated as string) | string | n/a | yes |
 | influxdb\_admin\_pass | influxdb admin account passphrase. | string | n/a | yes |
 | influxdb\_admin\_user | influxdb admin account name. | string | `"admin"` | no |
+| influxdb\_disk\_size | Disk size for InfluxDB. | string | `"128Gi"` | no |
 | influxdb\_telegraf\_pass | InfluxDB password for the telegraf user. | string | n/a | yes |
 | kubeconfig\_filename | kubeconfig file to configure kubernetes/helm providers | string | n/a | yes |
 | prometheus\_oauth\_client\_id | github oauth client id | string | n/a | yes |

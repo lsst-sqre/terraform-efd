@@ -40,7 +40,7 @@ persistence:
   ##
   storageClass: ${storage_class}
   accessMode: ReadWriteOnce
-  size: 128Gi
+  size: ${influxdb_disk_size}
 
 ## Create default user through Kubernetes job
 ## Defaults indicated below
