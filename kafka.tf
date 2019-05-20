@@ -42,6 +42,7 @@ data "template_file" "cp-helm-charts-values" {
     domain_name             = "${var.domain_name}"
     zookeeper_data_dir_size = "${var.zookeeper_data_dir_size}"
     zookeeper_log_dir_size  = "${var.zookeeper_log_dir_size}"
+    storage_class           = "${var.storage_class}"
   }
 }
 

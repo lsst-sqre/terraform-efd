@@ -89,6 +89,7 @@ module "efd" {
 | prometheus\_oauth\_client\_id | github oauth client id | string | n/a | yes |
 | prometheus\_oauth\_client\_secret | github oauth client secret | string | n/a | yes |
 | prometheus\_oauth\_github\_org | limit access to prometheus dashboard to members of this org | string | n/a | yes |
+| storage\_class | Storage class to be used for all persistent disks. For a deployment on k3s use 'local-path'. | string | `"pd-ssd"` | no |
 | tls\_crt\_path | wildcard tls certificate. | string | n/a | yes |
 | tls\_key\_path | wildcard tls private key. | string | n/a | yes |
 | zookeeper\_data\_dir\_size | Size for Data dir, where ZooKeeper will store the in-memory database snapshots. | string | `"15Gi"` | no |

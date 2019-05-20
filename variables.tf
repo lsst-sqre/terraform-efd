@@ -120,3 +120,8 @@ variable "prometheus_oauth_client_secret" {
 variable "kubeconfig_filename" {
   description = "kubeconfig file to configure kubernetes/helm providers"
 }
+
+variable "storage_class" {
+  description = "Storage class to be used for all persistent disks. For a deployment on k3s use 'local-path'."
+  default     = "pd-ssd"
+}

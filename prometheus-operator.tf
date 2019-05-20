@@ -42,6 +42,7 @@ data "template_file" "prometheus_operator_values" {
     prometheus_k8s_namespace = "${kubernetes_namespace.prometheus.metadata.0.name}"
     prometheus_secret_name   = "${kubernetes_secret.prometheus_tls.metadata.0.name}"
     team_ids                 = "${var.grafana_oauth_team_ids}"
+    storage_class            = "${var.storage_class}"
   }
 }
 

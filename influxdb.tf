@@ -51,6 +51,7 @@ data "template_file" "influxdb_values" {
     influxdb_secret_name = "${local.influxdb_secret_name}"
     influxdb_admin_user  = "${var.influxdb_admin_user}"
     influxdb_admin_pass  = "${var.influxdb_admin_pass}"
+    storage_class        = "${var.storage_class}"
   }
 }
 
