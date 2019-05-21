@@ -130,3 +130,8 @@ variable "storage_class" {
   description = "Storage class to be used for all persistent disks. For a deployment on k3s use 'local-path'."
   default     = "pd-ssd"
 }
+
+variable "enable_telegraf_daemonset" {
+  description = "If true Telegraf client will run on all nodes. Set false for k3s single node deployment."
+  default     = "true"
+}

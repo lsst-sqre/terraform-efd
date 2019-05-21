@@ -74,6 +74,7 @@ module "efd" {
 | dns\_enable | create route53 dns records. | string | `"false"` | no |
 | dns\_overwrite | overwrite pre-existing DNS records. | string | `"false"` | no |
 | domain\_name | DNS domain name to use when creating route53 records. | string | n/a | yes |
+| enable\_telegraf\_daemonset | If true Telegraf client will run on all nodes. Set false for k3s single node deployment. | string | `"true"` | no |
 | env\_name | Name of deployment environment. | string | n/a | yes |
 | github\_token | GitHub personal access token for authenticating to the GitHub API | string | n/a | yes |
 | github\_user | GitHub username for authenticating to the GitHub API. | string | n/a | yes |
