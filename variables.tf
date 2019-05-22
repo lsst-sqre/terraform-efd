@@ -135,3 +135,8 @@ variable "enable_telegraf_daemonset" {
   description = "If true Telegraf client will run on all nodes. Set false for k3s single node deployment."
   default     = "true"
 }
+
+variable "kafka_loadbalancers" {
+  description = "Number of Kafka loadbalancers. Must be less or equal to the number of Kafka brokers. Set to 1 for single node deployment with k3s."
+  default     = "3"
+}

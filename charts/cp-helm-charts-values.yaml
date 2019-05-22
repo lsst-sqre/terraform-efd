@@ -40,6 +40,7 @@ cp-zookeeper:
 cp-kafka:
   enabled: true
   brokers: 3
+  loadbalancers: ${kafka_loadbalancers}
   image: confluentinc/cp-kafka
   imageTag: 5.0.1
   ## Optionally specify an array of imagePullSecrets. Secrets must be manually created in the namespace.
