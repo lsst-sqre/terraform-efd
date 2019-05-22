@@ -19,11 +19,11 @@ cp-zookeeper:
     ##
     ## Size for Data dir, where ZooKeeper will store the in-memory database snapshots.
     dataDirSize: ${zookeeper_data_dir_size}
-    dataDirStorageClass: "pd-ssd"
+    dataDirStorageClass: ${storage_class}
 
     ## Size for data log dir, which is a dedicated log device to be used, and helps avoid competition between logging and snaphots.
     dataLogDirSize: ${zookeeper_log_dir_size}
-    dataLogDirStorageClass: "pd-ssd"
+    dataLogDirStorageClass: ${storage_class}
   resources: {}
   ## If you do want to specify resources, uncomment the following lines, adjust them as necessary,
   ## and remove the curly braces after 'resources:'
@@ -40,6 +40,7 @@ cp-zookeeper:
 cp-kafka:
   enabled: true
   brokers: 3
+  loadbalancers: ${kafka_loadbalancers}
   image: confluentinc/cp-kafka
   imageTag: 5.0.1
   ## Optionally specify an array of imagePullSecrets. Secrets must be manually created in the namespace.
@@ -49,7 +50,7 @@ cp-kafka:
   heapOptions: "-Xms512M -Xmx512M"
   persistence:
     enabled: true
-    storageClass: "pd-ssd"
+    storageClass: ${storage_class}
     size: ${brokers_disk_size}
     disksPerBroker: 1
   resources: {}

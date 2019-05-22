@@ -18,7 +18,7 @@ resource "helm_release" "confluent" {
   repository = "${helm_repository.confluentinc.metadata.0.name}"
   chart      = "cp-helm-charts"
   namespace  = "${kubernetes_namespace.kafka.metadata.0.name}"
-  version    = "0.1.1"
+  version    = "0.1.2"
 
   force_update  = true
   recreate_pods = true
@@ -42,30 +42,16 @@ data "template_file" "cp-helm-charts-values" {
     domain_name             = "${var.domain_name}"
     zookeeper_data_dir_size = "${var.zookeeper_data_dir_size}"
     zookeeper_log_dir_size  = "${var.zookeeper_log_dir_size}"
+    storage_class           = "${var.storage_class}"
+    kafka_loadbalancers     = "${var.kafka_loadbalancers}"
   }
 }
 
-data "kubernetes_service" "lb0" {
+data "kubernetes_service" "lb" {
+  count = "${var.kafka_loadbalancers}"
+
   metadata {
-    name      = "confluent-0-loadbalancer"
-    namespace = "${kubernetes_namespace.kafka.metadata.0.name}"
-  }
-
-  depends_on = ["helm_release.confluent"]
-}
-
-data "kubernetes_service" "lb1" {
-  metadata {
-    name      = "confluent-1-loadbalancer"
-    namespace = "${kubernetes_namespace.kafka.metadata.0.name}"
-  }
-
-  depends_on = ["helm_release.confluent"]
-}
-
-data "kubernetes_service" "lb2" {
-  metadata {
-    name      = "confluent-2-loadbalancer"
+    name      = "confluent-${count.index}-loadbalancer"
     namespace = "${kubernetes_namespace.kafka.metadata.0.name}"
   }
 
@@ -73,7 +59,5 @@ data "kubernetes_service" "lb2" {
 }
 
 locals {
-  confluent_lb0_ip = "${lookup(data.kubernetes_service.lb0.load_balancer_ingress[0], "ip")}"
-  confluent_lb1_ip = "${lookup(data.kubernetes_service.lb1.load_balancer_ingress[0], "ip")}"
-  confluent_lb2_ip = "${lookup(data.kubernetes_service.lb2.load_balancer_ingress[0], "ip")}"
+  confluent_lb_ips = ["${data.kubernetes_service.lb.0.load_balancer_ingress.0.ip}"]
 }

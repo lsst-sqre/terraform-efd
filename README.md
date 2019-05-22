@@ -74,6 +74,7 @@ module "efd" {
 | dns\_enable | create route53 dns records. | string | `"false"` | no |
 | dns\_overwrite | overwrite pre-existing DNS records. | string | `"false"` | no |
 | domain\_name | DNS domain name to use when creating route53 records. | string | n/a | yes |
+| enable\_telegraf\_daemonset | If true Telegraf client will run on all nodes. Set false for k3s single node deployment. | string | `"true"` | no |
 | env\_name | Name of deployment environment. | string | n/a | yes |
 | github\_token | GitHub personal access token for authenticating to the GitHub API | string | n/a | yes |
 | github\_user | GitHub username for authenticating to the GitHub API. | string | n/a | yes |
@@ -84,11 +85,14 @@ module "efd" {
 | grafana\_oauth\_team\_ids | github team id (integer value treated as string) | string | n/a | yes |
 | influxdb\_admin\_pass | influxdb admin account passphrase. | string | n/a | yes |
 | influxdb\_admin\_user | influxdb admin account name. | string | `"admin"` | no |
+| influxdb\_disk\_size | Disk size for InfluxDB. | string | `"128Gi"` | no |
 | influxdb\_telegraf\_pass | InfluxDB password for the telegraf user. | string | n/a | yes |
+| kafka\_loadbalancers | Number of Kafka loadbalancers. Must be less or equal to the number of Kafka brokers. Set to 1 for single node deployment with k3s. | string | `"3"` | no |
 | kubeconfig\_filename | kubeconfig file to configure kubernetes/helm providers | string | n/a | yes |
 | prometheus\_oauth\_client\_id | github oauth client id | string | n/a | yes |
 | prometheus\_oauth\_client\_secret | github oauth client secret | string | n/a | yes |
 | prometheus\_oauth\_github\_org | limit access to prometheus dashboard to members of this org | string | n/a | yes |
+| storage\_class | Storage class to be used for all persistent disks. For a deployment on k3s use 'local-path'. | string | `"pd-ssd"` | no |
 | tls\_crt\_path | wildcard tls certificate. | string | n/a | yes |
 | tls\_key\_path | wildcard tls private key. | string | n/a | yes |
 | zookeeper\_data\_dir\_size | Size for Data dir, where ZooKeeper will store the in-memory database snapshots. | string | `"15Gi"` | no |
@@ -98,9 +102,7 @@ module "efd" {
 
 | Name | Description |
 |------|-------------|
-| confluent\_lb0 |  |
-| confluent\_lb1 |  |
-| confluent\_lb2 |  |
+| confluent\_lb\_ips |  |
 | grafana\_fqdn |  |
 | influxdb\_fqdn |  |
 | nginx\_ingress\_ip |  |

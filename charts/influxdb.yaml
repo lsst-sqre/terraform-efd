@@ -38,9 +38,9 @@ persistence:
   ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
   ##   GKE, AWS & OpenStack)
   ##
-  storageClass: "pd-ssd"
+  storageClass: ${storage_class}
   accessMode: ReadWriteOnce
-  size: 128Gi
+  size: ${influxdb_disk_size}
 
 ## Create default user through Kubernetes job
 ## Defaults indicated below
