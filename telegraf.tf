@@ -9,8 +9,6 @@ resource "kubernetes_namespace" "telegraf" {
 }
 
 resource "helm_release" "telegraf" {
-  provider = "helm.efd"
-
   name      = "telegraf"
   chart     = "stable/telegraf"
   namespace = "${kubernetes_namespace.telegraf.metadata.0.name}"
@@ -24,7 +22,6 @@ resource "helm_release" "telegraf" {
   ]
 
   depends_on = [
-    "module.tiller",
     "helm_release.influxdb",
     "helm_release.nginx_ingress",
   ]

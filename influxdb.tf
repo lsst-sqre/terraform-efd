@@ -10,8 +10,6 @@ resource "kubernetes_namespace" "influxdb" {
 }
 
 resource "helm_release" "influxdb" {
-  provider = "helm.efd"
-
   name      = "influxdb"
   chart     = "stable/influxdb"
   namespace = "${kubernetes_namespace.influxdb.metadata.0.name}"
@@ -26,7 +24,6 @@ resource "helm_release" "influxdb" {
 
   depends_on = [
     "kubernetes_secret.influxdb_tls",
-    "module.tiller",
     "helm_release.nginx_ingress",
   ]
 }

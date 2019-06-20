@@ -5,15 +5,11 @@ resource "kubernetes_namespace" "kafka" {
 }
 
 resource "helm_repository" "confluentinc" {
-  provider = "helm.efd"
-
   name = "confluentinc"
   url  = "https://raw.githubusercontent.com/lsst-sqre/cp-helm-charts/master"
 }
 
 resource "helm_release" "confluent" {
-  provider = "helm.efd"
-
   name       = "confluent"
   repository = "${helm_repository.confluentinc.metadata.0.name}"
   chart      = "cp-helm-charts"
@@ -25,10 +21,6 @@ resource "helm_release" "confluent" {
 
   values = [
     "${data.template_file.cp-helm-charts-values.rendered}",
-  ]
-
-  depends_on = [
-    "module.tiller",
   ]
 }
 
