@@ -10,8 +10,6 @@ resource "kubernetes_namespace" "nginx_ingress" {
 }
 
 resource "helm_release" "nginx_ingress" {
-  provider = "helm.efd"
-
   name      = "nginx-ingress"
   chart     = "stable/nginx-ingress"
   namespace = "${kubernetes_namespace.nginx_ingress.metadata.0.name}"
@@ -25,8 +23,6 @@ resource "helm_release" "nginx_ingress" {
   ]
 
   depends_on = [
-    "module.tiller",
-
     # serviceMonitor CRD
     "helm_release.prometheus_operator",
   ]

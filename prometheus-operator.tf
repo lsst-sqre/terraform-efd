@@ -10,8 +10,6 @@ resource "kubernetes_namespace" "prometheus" {
 }
 
 resource "helm_release" "prometheus_operator" {
-  provider = "helm.efd"
-
   name      = "prometheus-operator"
   chart     = "stable/prometheus-operator"
   namespace = "${kubernetes_namespace.prometheus.metadata.0.name}"
@@ -22,10 +20,6 @@ resource "helm_release" "prometheus_operator" {
 
   values = [
     "${data.template_file.prometheus_operator_values.rendered}",
-  ]
-
-  depends_on = [
-    "module.tiller",
   ]
 }
 
@@ -61,8 +55,6 @@ resource "kubernetes_secret" "prometheus_tls" {
 }
 
 resource "helm_release" "prometheus_oauth2_proxy" {
-  provider = "helm.efd"
-
   name      = "prometheus-oauth2-proxy"
   chart     = "stable/oauth2-proxy"
   namespace = "${kubernetes_namespace.prometheus.metadata.0.name}"
@@ -73,10 +65,6 @@ resource "helm_release" "prometheus_oauth2_proxy" {
 
   values = [
     "${data.template_file.prometheus_oauth2_proxy_values.rendered}",
-  ]
-
-  depends_on = [
-    "module.tiller",
   ]
 }
 

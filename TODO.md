@@ -2,7 +2,6 @@ minimum-viable-prod
 ===
 
 - ~~grafana admin teams/orgs~~
-- ~~restrict access to tiller from other namespaces~~
     https://engineering.bitnami.com/articles/helm-security.html
 - ~~mv tls certs to tg level~~
 - ~~prometheus dns record~~

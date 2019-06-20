@@ -21,6 +21,7 @@ The required callback URLs are:
 ### Example
 
 ```terraform
+# required providers
 provider "aws" {
   version = "~> 2.10.0"
   region  = "us-east-1"
@@ -31,6 +32,27 @@ provider "kubernetes" {
 
   config_path      = "/tmp/kubeconfig"
   load_config_file = true
+}
+
+provider "helm" {
+  version = "~> 0.9.1"
+
+  service_account = "${module.tiller.service_account}"
+  namespace       = "${module.tiller.namespace}"
+  install_tiller  = false
+
+  kubernetes {
+    load_config_file       = false
+    host                   = "${module.gke.host}"
+    cluster_ca_certificate = "${base64decode(module.gke.cluster_ca_certificate)}"
+    token                  = "${module.gke.token}"
+  }
+}
+
+provider "influxdb" {
+  url      = "https://${local.dns_prefix}influxdb-${var.deploy_name}.${var.domain_name}"
+  username = "${var.influxdb_admin_user}"
+  password = "${var.influxdb_admin_pass}"
 }
 
 module "efd" {
@@ -52,7 +74,6 @@ module "efd" {
   influxdb_admin_pass            = "${var.influxdb_admin_pass}"
   influxdb_admin_user            = "${var.influxdb_admin_user}"
   influxdb_telegraf_pass         = "${var.influxdb_telegraf_pass}"
-  kubeconfig_filename            = "/tmp/kubeconfig"
   prometheus_oauth_client_id     = "${var.prometheus_oauth_client_id}"
   prometheus_oauth_client_secret = "${var.prometheus_oauth_client_secret}"
   prometheus_oauth_github_org    = "${var.prometheus_oauth_github_org}"
@@ -88,7 +109,6 @@ module "efd" {
 | influxdb\_disk\_size | Disk size for InfluxDB. | string | `"128Gi"` | no |
 | influxdb\_telegraf\_pass | InfluxDB password for the telegraf user. | string | n/a | yes |
 | kafka\_loadbalancers | Number of Kafka loadbalancers. Must be less or equal to the number of Kafka brokers. Set to 1 for single node deployment with k3s. | string | `"3"` | no |
-| kubeconfig\_filename | kubeconfig file to configure kubernetes/helm providers | string | n/a | yes |
 | prometheus\_oauth\_client\_id | github oauth client id | string | n/a | yes |
 | prometheus\_oauth\_client\_secret | github oauth client secret | string | n/a | yes |
 | prometheus\_oauth\_github\_org | limit access to prometheus dashboard to members of this org | string | n/a | yes |
