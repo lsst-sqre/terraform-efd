@@ -6,7 +6,9 @@ resource "kubernetes_namespace" "kafka" {
 
 data "helm_repository" "confluentinc" {
   name = "confluentinc"
-  url  = "https://raw.githubusercontent.com/lsst-sqre/cp-helm-charts/master"
+
+  # cp-helm-charts 0.1.1
+  url = "https://raw.githubusercontent.com/lsst-sqre/cp-helm-charts/0.1.1"
 }
 
 resource "helm_release" "confluent" {
