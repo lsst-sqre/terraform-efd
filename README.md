@@ -108,7 +108,6 @@ module "efd" {
 | influxdb\_admin\_user | influxdb admin account name. | string | `"admin"` | no |
 | influxdb\_disk\_size | Disk size for InfluxDB. | string | `"128Gi"` | no |
 | influxdb\_telegraf\_pass | InfluxDB password for the telegraf user. | string | n/a | yes |
-| kafka\_loadbalancers | Number of Kafka loadbalancers. Must be less or equal to the number of Kafka brokers. Set to 1 for single node deployment with k3s. | string | `"3"` | no |
 | prometheus\_oauth\_client\_id | github oauth client id | string | n/a | yes |
 | prometheus\_oauth\_client\_secret | github oauth client secret | string | n/a | yes |
 | prometheus\_oauth\_github\_org | limit access to prometheus dashboard to members of this org | string | n/a | yes |
@@ -122,7 +121,9 @@ module "efd" {
 
 | Name | Description |
 |------|-------------|
-| confluent\_lb\_ips |  |
+| confluent\_lb0 |  |
+| confluent\_lb1 |  |
+| confluent\_lb2 |  |
 | grafana\_fqdn |  |
 | influxdb\_fqdn |  |
 | nginx\_ingress\_ip |  |

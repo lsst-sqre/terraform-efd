@@ -1,5 +1,13 @@
-output "confluent_lb_ips" {
-  value = "${local.confluent_lb_ips}"
+output "confluent_lb0" {
+  value = "${local.confluent_lb0_ip}"
+}
+
+output "confluent_lb1" {
+  value = "${local.confluent_lb1_ip}"
+}
+
+output "confluent_lb2" {
+  value = "${local.confluent_lb2_ip}"
 }
 
 output "nginx_ingress_ip" {
