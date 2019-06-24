@@ -4,14 +4,14 @@ resource "kubernetes_namespace" "kafka" {
   }
 }
 
-resource "helm_repository" "confluentinc" {
+data "helm_repository" "confluentinc" {
   name = "confluentinc"
   url  = "https://raw.githubusercontent.com/lsst-sqre/cp-helm-charts/master"
 }
 
 resource "helm_release" "confluent" {
   name       = "confluent"
-  repository = "${helm_repository.confluentinc.metadata.0.name}"
+  repository = "${data.helm_repository.confluentinc.metadata.0.name}"
   chart      = "cp-helm-charts"
   namespace  = "${kubernetes_namespace.kafka.metadata.0.name}"
   version    = "0.1.2"
