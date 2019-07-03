@@ -36,11 +36,11 @@ variable "grafana_admin_pass" {
   description = "grafana admin account passphrase."
 }
 
-variable "tls_crt_path" {
+variable "tls_crt" {
   description = "wildcard tls certificate."
 }
 
-variable "tls_key_path" {
+variable "tls_key" {
   description = "wildcard tls private key."
 }
 
@@ -65,8 +65,8 @@ locals {
   telegraf_k8s_namespace       = "telegraf"
   nginx_ingress_k8s_namespace  = "nginx-ingress"
   kafka_efd_apps_k8s_namespace = "kafka-efd-apps"
-  tls_crt                      = "${file(var.tls_crt_path)}"
-  tls_key                      = "${file(var.tls_key_path)}"
+  tls_crt                      = "${var.tls_crt}"
+  tls_key                      = "${var.tls_key}"
 }
 
 variable "influxdb_admin_user" {

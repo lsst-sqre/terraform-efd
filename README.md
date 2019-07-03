@@ -77,8 +77,8 @@ module "efd" {
   prometheus_oauth_client_id     = "${var.prometheus_oauth_client_id}"
   prometheus_oauth_client_secret = "${var.prometheus_oauth_client_secret}"
   prometheus_oauth_github_org    = "${var.prometheus_oauth_github_org}"
-  tls_crt_path                   = "${var.tls_crt_path}"
-  tls_key_path                   = "${var.tls_key_path}"
+  tls_crt                        = "${file(var.tls_crt_path)}"
+  tls_key                        = "${file(var.tls_key_path)}"
   zookeeper_data_dir_size        = "${var.zookeeper_data_dir_size}"
   zookeeper_log_dir_size         = "${var.zookeeper_log_dir_size}"
 }
@@ -112,8 +112,8 @@ module "efd" {
 | prometheus\_oauth\_client\_secret | github oauth client secret | string | n/a | yes |
 | prometheus\_oauth\_github\_org | limit access to prometheus dashboard to members of this org | string | n/a | yes |
 | storage\_class | Storage class to be used for all persistent disks. For a deployment on k3s use 'local-path'. | string | `"pd-ssd"` | no |
-| tls\_crt\_path | wildcard tls certificate. | string | n/a | yes |
-| tls\_key\_path | wildcard tls private key. | string | n/a | yes |
+| tls\_crt | wildcard tls certificate. | string | n/a | yes |
+| tls\_key | wildcard tls private key. | string | n/a | yes |
 | zookeeper\_data\_dir\_size | Size for Data dir, where ZooKeeper will store the in-memory database snapshots. | string | `"15Gi"` | no |
 | zookeeper\_log\_dir\_size | Size for data log dir, which is a dedicated log device to be used, and helps avoid competition between logging and snaphots. | string | `"15Gi"` | no |
 
