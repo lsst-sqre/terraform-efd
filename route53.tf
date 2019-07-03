@@ -1,12 +1,34 @@
-resource "aws_route53_record" "kafka_lb" {
-  count           = "${var.dns_enable ? var.kafka_loadbalancers : 0}"
+resource "aws_route53_record" "kafka_lb0" {
+  count           = "${var.dns_enable ? 1 : 0}"
   zone_id         = "${var.aws_zone_id}"
   allow_overwrite = "${var.dns_overwrite}"
 
-  name    = "${local.dns_prefix}${var.deploy_name}${count.index}.${var.domain_name}"
+  name    = "${local.dns_prefix}${var.deploy_name}0.${var.domain_name}"
   type    = "A"
   ttl     = "60"
-  records = ["${element(local.confluent_lb_ips, count.index)}"]
+  records = ["${local.confluent_lb0_ip}"]
+}
+
+resource "aws_route53_record" "kafka_lb1" {
+  count           = "${var.dns_enable ? 1 : 0}"
+  zone_id         = "${var.aws_zone_id}"
+  allow_overwrite = "${var.dns_overwrite}"
+
+  name    = "${local.dns_prefix}${var.deploy_name}1.${var.domain_name}"
+  type    = "A"
+  ttl     = "60"
+  records = ["${local.confluent_lb1_ip}"]
+}
+
+resource "aws_route53_record" "kafka_lb2" {
+  count           = "${var.dns_enable ? 1 : 0}"
+  zone_id         = "${var.aws_zone_id}"
+  allow_overwrite = "${var.dns_overwrite}"
+
+  name    = "${local.dns_prefix}${var.deploy_name}2.${var.domain_name}"
+  type    = "A"
+  ttl     = "60"
+  records = ["${local.confluent_lb2_ip}"]
 }
 
 resource "aws_route53_record" "grafana" {
