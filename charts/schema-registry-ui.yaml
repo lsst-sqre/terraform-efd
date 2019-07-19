@@ -19,7 +19,7 @@ service:
 schemaRegistry:
   url: "http://confluent-cp-schema-registry"
   port: 8081
-  proxy: false
+  proxy: true
 
 ingress:
   enabled: false
