@@ -34,13 +34,14 @@ data "template_file" "cp-helm-charts-values" {
   template = "${file("${path.module}/charts/cp-helm-charts-values.yaml")}"
 
   vars {
+    brokers_count           = "${var.brokers_count}"
     brokers_disk_size       = "${var.brokers_disk_size}"
     deploy_name             = "${var.deploy_name}"
     dns_prefix              = "${local.dns_prefix}"
     domain_name             = "${var.domain_name}"
+    storage_class           = "${var.storage_class}"
     zookeeper_data_dir_size = "${var.zookeeper_data_dir_size}"
     zookeeper_log_dir_size  = "${var.zookeeper_log_dir_size}"
-    storage_class           = "${var.storage_class}"
   }
 }
 

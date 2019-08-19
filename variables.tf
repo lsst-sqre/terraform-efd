@@ -96,6 +96,11 @@ variable "brokers_disk_size" {
   default     = "15Gi"
 }
 
+variable "brokers_count" {
+  description = "Number of cp-kafka broker instances."
+  default     = 3
+}
+
 variable "zookeeper_data_dir_size" {
   description = "Size for Data dir, where ZooKeeper will store the in-memory database snapshots."
   default     = "15Gi"
