@@ -25,3 +25,7 @@ output "prometheus_fqdn" {
 output "influxdb_fqdn" {
   value = "${local.influxdb_fqdn}"
 }
+
+output "registry_fqdn" {
+  value = "${local.registry_fqdn}"
+}
