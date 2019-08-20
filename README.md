@@ -90,6 +90,7 @@ module "efd" {
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
 | aws\_zone\_id | route53 Hosted Zone ID to manage DNS records in. | string | n/a | yes |
+| brokers\_count | Number of cp-kafka broker instances. | string | `"3"` | no |
 | brokers\_disk\_size | Disk size for the cp-kafka brokers. | string | `"15Gi"` | no |
 | deploy\_name | Name of deployment. | string | `"efd"` | no |
 | dns\_enable | create route53 dns records. | string | `"false"` | no |
