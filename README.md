@@ -128,6 +128,7 @@ module "efd" {
 | influxdb\_fqdn |  |
 | nginx\_ingress\_ip |  |
 | prometheus\_fqdn |  |
+| registry\_fqdn |  |
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 

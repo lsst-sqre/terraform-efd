@@ -1,3 +1,7 @@
+locals {
+  registry_fqdn = "${local.dns_prefix}registry-${var.deploy_name}.${var.domain_name}"
+}
+
 resource "kubernetes_namespace" "kafka" {
   metadata {
     name = "${local.kafka_k8s_namespace}"
@@ -71,4 +75,47 @@ locals {
   confluent_lb0_ip = "${lookup(data.kubernetes_service.lb0.load_balancer_ingress[0], "ip")}"
   confluent_lb1_ip = "${lookup(data.kubernetes_service.lb1.load_balancer_ingress[0], "ip")}"
   confluent_lb2_ip = "${lookup(data.kubernetes_service.lb2.load_balancer_ingress[0], "ip")}"
+}
+
+resource "kubernetes_secret" "schema_registry_tls" {
+  metadata {
+    name      = "schema-registry-tls"
+    namespace = "${kubernetes_namespace.kafka.metadata.0.name}"
+  }
+
+  data {
+    tls.crt = "${local.tls_crt}"
+    tls.key = "${local.tls_key}"
+  }
+}
+
+resource "kubernetes_ingress" "schema_registry" {
+  metadata {
+    name      = "confluent-cp-schema-registry"
+    namespace = "${kubernetes_namespace.kafka.metadata.0.name}"
+  }
+
+  spec {
+    tls {
+      hosts       = ["${local.registry_fqdn}"]
+      secret_name = "${kubernetes_secret.schema_registry_tls.metadata.0.name}"
+    }
+
+    rule {
+      host = "${local.registry_fqdn}"
+
+      http {
+        path {
+          backend {
+            service_name = "confluent-cp-schema-registry"
+            service_port = 8081
+          }
+
+          path = "/"
+        }
+      }
+    }
+  }
+
+  depends_on = ["helm_release.nginx_ingress"]
 }

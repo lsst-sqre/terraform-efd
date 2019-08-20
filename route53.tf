@@ -63,3 +63,14 @@ resource "aws_route53_record" "influxdb" {
   ttl     = "60"
   records = ["${local.nginx_ingress_ip}"]
 }
+
+resource "aws_route53_record" "registry" {
+  count           = "${var.dns_enable ? 1 : 0}"
+  zone_id         = "${var.aws_zone_id}"
+  allow_overwrite = "${var.dns_overwrite}"
+
+  name    = "${local.registry_fqdn}"
+  type    = "A"
+  ttl     = "60"
+  records = ["${local.nginx_ingress_ip}"]
+}
